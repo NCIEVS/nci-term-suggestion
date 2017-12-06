@@ -137,7 +137,7 @@ if (errorMsg != null) {
   </div>
   <br/>
 
-  <table class="textbody">
+  <table class="textbody" role='presentation'>
     <tr>
       <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       <td>Telephone:</td>
@@ -186,7 +186,7 @@ if (errorMsg != null) {
   <h:form styleClass="search-form" acceptcharset="UTF-8">
   
 <p>
-<table>
+<table role='presentation'>
 <%
 String answer_label = "Enter the characters appearing in the above image";
 
@@ -268,13 +268,13 @@ if (captcha_option.compareTo("default") == 0) {
       action="#{userSessionBean.clearContactUs}"
       alt="clear">
     </h:commandButton>
-    <img src="<%=imagesPath%>/spacer.gif" width="1" />
+           <img src="<%=imagesPath%>/spacer.gif" alt="spacer" width="1" />
     <h:commandButton
       id="mail"
       value="submit"
       image="/images/submit.gif"
       action="#{userSessionBean.contactUs}"
-      alt="submit" >
+      alt="submit">
     </h:commandButton>
     
     <input type="hidden" name="captcha_option" id="captcha_option" value="<%=alt_captcha_option%>">

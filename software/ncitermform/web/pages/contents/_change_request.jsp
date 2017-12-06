@@ -104,14 +104,6 @@ request.getSession().removeAttribute(CDISC_CODES);
 
   
 %>
-<!--
-Do you want to suggest a new term or suggest a modification to one:
-<br/>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="group1" onclick="go('<%=BaseRequest.getIndexPage(request)%>')">Yes
-
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="group1" onclick="javascript:window.close()">Close Window
-<br/>
--->
 
 <p>
 You may click <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>">here</a> to suggest a new term or suggest a modification to one, 

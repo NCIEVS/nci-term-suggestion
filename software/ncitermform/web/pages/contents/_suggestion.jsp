@@ -259,7 +259,7 @@ if (errorMsg != null) {
 %>
 
 <h:form id="suggestion" styleClass="search-form" acceptcharset="UTF-8">
-    <table class="newConceptDT">
+    <table class="newConceptDT" role='presentation'>
     
       <!-- =================================================================== -->
       <%
@@ -477,6 +477,7 @@ which can also respond to any questions.
       <%
           if (version != null && version.compareToIgnoreCase("CADSR") == 0) {
       %>
+      <!--
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_SOURCE%>"><%=CADSR_SOURCE_LABEL%></LABEL>:</td>
             <td colspan="2">
@@ -497,6 +498,31 @@ which can also respond to any questions.
               </select>
             </td>
           </tr>
+      -->
+      
+          <tr>
+            <td valign="top"><label for="cadsr_source">Source:</label></td>
+            <td colspan="2">
+              <input list="cadsrSource" name="<%=CADSR_SOURCE%>" class="select_casdr_source"/>
+              <datalist id="cadsrSource">
+                <%
+                  selectedItem = cadsr_source;
+                  items = AppProperties.getInstance().getCADSRSourceList();
+                  for (i=0; i<items.length; ++i) {
+                    String item = items[i];
+                    String args = "";
+                    if (item.equals(selectedItem))
+                      args += "selected=\"true\"";
+                %>
+                      <option value="<%=item%>" <%=args%>><%=item%></option>
+                <%
+                  }
+                %>
+              </select>
+            </td>
+          </tr>      
+          
+          
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_TYPE%>"><%=CADSR_TYPE_LABEL%></LABEL>:</td>
             <td colspan="2">
@@ -587,11 +613,11 @@ then enter the numbers you hear from the audio
       
       <td align="right">
 
-     <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="15"
+     <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="1"
 	onclick="return confirm('Are you sure you want clear this page?')">
-	<img src="<%=imagesPath%>/clear.gif" border="0"></a>
+	<img src="<%=imagesPath%>/clear.gif" alt="clear" border="0"></a>
 
-           <img src="<%=imagesPath%>/spacer.gif" width="1" />
+           <img src="<%=imagesPath%>/spacer.gif" alt="spacer" width="1" />
  
            <h:commandButton
              id="submit"

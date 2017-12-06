@@ -213,7 +213,7 @@ if (errorMsg != null) {
 %>
 
 <h:form id="suggestion" styleClass="search-form" acceptcharset="UTF-8">
-    <table class="newConceptDT">
+    <table class="newConceptDT" role='presentation'>
       <!-- =================================================================== -->
 <%      
           boolean form_completed = true;
@@ -532,11 +532,11 @@ In addition, please submit a CDISC New Term Request form indicating
            </h:commandButton>      
 -->
 
-     <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="15"
+     <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="1"
 	onclick="return confirm('Are you sure you want clear this page?')">
-	<img src="<%=imagesPath%>/clear.gif" border="0"></a>
+	<img src="<%=imagesPath%>/clear.gif" alt="clear" border="0"></a>
 	
-           <img src="<%=imagesPath%>/spacer.gif" width="1" />
+           <img src="<%=imagesPath%>/spacer.gif" alt="spacer" width="1" />
  
            <h:commandButton
              id="submit"
