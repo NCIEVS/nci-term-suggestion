@@ -426,6 +426,9 @@ In addition, please submit a CDISC New Term Request form indicating
           </select>
         </td>
       </tr>
+      
+      
+<!--      
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
         <td colspan="2">
@@ -446,6 +449,32 @@ In addition, please submit a CDISC New Term Request form indicating
           </select>
         </td>
       </tr>
+-->
+
+
+          <tr>
+        <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
+        <td colspan="2">
+              <input list="cdiscCodes" name="<%=CDISC_CODES%>" class="select_casdr_source"/>
+              <datalist id="cdiscCodes">
+                <%
+                  selectedItem = cdisc_codes;
+                  items = AppProperties.getInstance().getCDISCCodeList();
+                  for (i=0; i<items.length; ++i) {
+                    String item = items[i];
+                    String args = "";
+                    if (item.equals(selectedItem))
+                      args += "selected=\"true\"";
+                %>
+                      <option value="<%=item%>" <%=args%>><%=item%></option>
+                <%
+                  }
+                %>
+              </select>
+            </td>
+          </tr>      
+      
+      
       <tr>
         <td></td>
         <td colspan="2" class="newConceptNotes"><b class="warningMsgColor">Note to user: </b>

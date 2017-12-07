@@ -501,7 +501,7 @@ which can also respond to any questions.
       -->
       
           <tr>
-            <td valign="top"><label for="cadsr_source">Source:</label></td>
+            <td valign="top"><label for="<%=CADSR_SOURCE%>">Source:</label></td>
             <td colspan="2">
               <input list="cadsrSource" name="<%=CADSR_SOURCE%>" class="select_casdr_source"/>
               <datalist id="cadsrSource">
