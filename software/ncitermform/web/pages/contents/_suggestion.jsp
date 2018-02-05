@@ -543,7 +543,7 @@ which can also respond to any questions.
       -->   
 
       <tr>
-         <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source:</LABEL>:</td>
+         <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source</LABEL>:</td>
          <td colspan="2">
                <input id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="ui-widget">
          </td>
