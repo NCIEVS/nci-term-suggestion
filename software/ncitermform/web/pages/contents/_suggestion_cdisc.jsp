@@ -19,7 +19,8 @@
     <title>NCI Term Form</title>
 
 	<script type="text/javascript" src="<%=FormUtils.getJSPath(request)%>/utils.js"></script>
-	<link href="<%= request.getContextPath() %>/css/sc.css" type="text/css" rel="stylesheet" />    
+	<link href="<%= request.getContextPath() %>/css/sc.css" type="text/css" rel="stylesheet" /> 
+	<link href="<%= request.getContextPath() %>/css/ui-widget.css" type="text/css" rel="stylesheet" />
 
     <script>
     
@@ -63,6 +64,25 @@ function displayVocabLinkInNewWindow(id) {
 			}
 	    }		    
     </script>
+   
+  <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/css/ui-widget.css" />
+  <script src="<%= request.getContextPath()%>/js/jquery-1.12.4.js"></script>
+  <script src="<%= request.getContextPath()%>/js/jquery-ui.js"></script>
+<!--
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+-->
+
+  <script>
+  $( function() {
+    var str = document.getElementById("cdisc_codes_str").value;
+    var cdisc_codes = str.split(";");
+    $( "#cdiscCodeList" ).autocomplete({
+      source: cdisc_codes
+    });
+  } );
+  </script>    
+    
     
 </head>
 
@@ -70,6 +90,8 @@ function displayVocabLinkInNewWindow(id) {
 
   //Prop.Version versionSession = (Prop.Version) 
   //   request.getSession().getAttribute(FormRequest.VERSION);
+  
+    String cdisc_codes = AppProperties.getInstance().getCDISCCodes();
 
     String versionSession = (String) request.getSession().getAttribute(FormRequest.VERSION);
     boolean audio_captcha_background_noise_on = true;
@@ -152,7 +174,7 @@ function displayVocabLinkInNewWindow(id) {
   String organization = (String) request.getSession().getAttribute(ORGANIZATION);
   String vocabulary = (String) request.getSession().getAttribute(VOCABULARY);
   String cdisc_request_type = (String) request.getSession().getAttribute(CDISC_REQUEST_TYPE);
-  String cdisc_codes = (String) request.getSession().getAttribute(CDISC_CODES);
+  //String cdisc_codes = (String) request.getSession().getAttribute(CDISC_CODES);
   String term = (String) request.getSession().getAttribute(TERM);
  
   
@@ -426,54 +448,13 @@ In addition, please submit a CDISC New Term Request form indicating
           </select>
         </td>
       </tr>
-      
-      
-<!--      
+            
       <tr>
-        <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
-        <td colspan="2">
-          <select name="<%=CDISC_CODES%>" class="newConceptCB2<%=css%>">
-            <%
-              selectedItem = cdisc_codes;
-              items = AppProperties.getInstance().getCDISCCodeList();
-              for (i=0; i<items.length; ++i) {
-                String item = items[i];
-                String args = "";
-                if (item.equals(selectedItem))
-                  args += "selected=\"true\"";
-            %>
-                  <option value="<%=item%>" <%=args%>><%=item%></option>
-            <%
-              }
-            %>
-          </select>
-        </td>
-      </tr>
--->
-
-
-          <tr>
-        <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
-        <td colspan="2">
-              <input list="cdiscCodes" name="<%=CDISC_CODES%>" class="select_casdr_source"/>
-              <datalist id="cdiscCodes">
-                <%
-                  selectedItem = cdisc_codes;
-                  items = AppProperties.getInstance().getCDISCCodeList();
-                  for (i=0; i<items.length; ++i) {
-                    String item = items[i];
-                    String args = "";
-                    if (item.equals(selectedItem))
-                      args += "selected=\"true\"";
-                %>
-                      <option value="<%=item%>" <%=args%>><%=item%></option>
-                <%
-                  }
-                %>
-              </select>
-            </td>
-          </tr>      
-      
+         <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
+         <td colspan="2" >
+               <input id="<%=CDISC_CODES%>" name="<%=CDISC_CODES%>" class="ui-widget">
+         </td>
+      </tr>      
       
       <tr>
         <td></td>
@@ -499,8 +480,6 @@ In addition, please submit a CDISC New Term Request form indicating
  <%
  
  System.out.println(REASON_LABEL);
- 
- 
  String answer = "";
  String answer_label = "Enter the characters appearing in the above image";
  if (captcha_option.compareTo("default") != 0) {
@@ -551,15 +530,6 @@ In addition, please submit a CDISC New Term Request form indicating
       <tr>
         <td class="newConceptNotes"><i class="warningMsgColor">* Required</i></td>
         <td colspan="2" align="right">
-<!--        
-           <h:commandButton
-             id="clear"
-             value="clear"
-             action="#{userSessionBean.clearCDISCSuggestion}"
-             image="/images/clear.gif"
-             alt="clear">
-           </h:commandButton>      
--->
 
      <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="1"
 	onclick="return confirm('Are you sure you want clear this page?')">
@@ -590,6 +560,14 @@ In addition, please submit a CDISC New Term Request form indicating
       <input type="hidden" name="version" id="version" value="<%=versionSession%>">
 
   </h:form>
+  
+  
+<form>
+     <input type="hidden" id="cdisc_codes_str" value="<%=cdisc_codes%>">
+</form>  
+  
+  
+  
 </f:view>
 
 <script type="text/javascript">_satellite.pageBottom();</script>
