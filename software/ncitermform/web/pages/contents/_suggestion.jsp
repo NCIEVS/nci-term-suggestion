@@ -99,6 +99,22 @@ function displayVocabLinkInNewWindow(id) {
 	    
     </script>
     
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ui-widget.css" />
+  <script src="<%=request.getContextPath()%>/js/jquery-1.12.4.js"></script>
+  <script src="<%=request.getContextPath()%>/js/jquery-ui.js"></script>
+
+
+  <script>
+  $( function() {
+    var str = document.getElementById("cadsr_sources_str").value;
+    var cadsr_sources = str.split(";");
+    $( "#cadsrSource" ).autocomplete({
+      source: cadsr_sources
+    });
+  } );
+  </script>    
+    
+    
 </head>
 
 <%
@@ -109,6 +125,9 @@ function displayVocabLinkInNewWindow(id) {
         audio_captcha_str = "nci.audio.wav";
     }
     
+    String cadsr_sources = AppProperties.getInstance().getSources();
+    cadsr_sources = cadsr_sources.replaceAll("; ", ";");
+   
     String captcha_option = "default";
     String alt_captcha_option = "audio";
     String opt = HTTPUtils.cleanXSS((String) request.getSession().getAttribute("captcha_option"));
@@ -499,7 +518,7 @@ which can also respond to any questions.
             </td>
           </tr>
       -->
-      
+      <!--
           <tr>
             <td valign="top"><label for="<%=CADSR_SOURCE%>">Source:</label></td>
             <td colspan="2">
@@ -521,7 +540,14 @@ which can also respond to any questions.
               </select>
             </td>
           </tr>      
-          
+      -->   
+
+      <tr>
+         <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source:</LABEL>:</td>
+         <td colspan="2">
+               <input id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="ui-widget">
+         </td>
+      </tr>
           
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_TYPE%>"><%=CADSR_TYPE_LABEL%></LABEL>:</td>
@@ -642,6 +668,10 @@ then enter the numbers you hear from the audio
    <input type="hidden" name="version" id="version" value="<%=version%>" />
    
   </h:form>
+
+<form>
+     <input type="hidden" id="cadsr_sources_str" value="<%=cadsr_sources%>">
+</form>
 
 </f:view>
 

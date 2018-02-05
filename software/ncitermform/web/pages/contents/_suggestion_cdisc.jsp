@@ -92,6 +92,7 @@ function displayVocabLinkInNewWindow(id) {
   //   request.getSession().getAttribute(FormRequest.VERSION);
   
     String cdisc_codes = AppProperties.getInstance().getCDISCCodes();
+    cdisc_codes = cdisc_codes.replaceAll("; ", ";");
 
     String versionSession = (String) request.getSession().getAttribute(FormRequest.VERSION);
     boolean audio_captcha_background_noise_on = true;
