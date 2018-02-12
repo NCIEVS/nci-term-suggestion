@@ -100,6 +100,7 @@ function displayVocabLinkInNewWindow(id) {
     </script>
     
   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ui-widget.css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="<%=request.getContextPath()%>/js/jquery-1.12.4.js"></script>
   <script src="<%=request.getContextPath()%>/js/jquery-ui.js"></script>
 

@@ -19,6 +19,7 @@
     <title>NCI Term Form</title>
 
 	<script type="text/javascript" src="<%=FormUtils.getJSPath(request)%>/utils.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link href="<%= request.getContextPath() %>/css/sc.css" type="text/css" rel="stylesheet" /> 
 	<link href="<%= request.getContextPath() %>/css/ui-widget.css" type="text/css" rel="stylesheet" />
 
