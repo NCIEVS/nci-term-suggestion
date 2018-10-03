@@ -547,9 +547,6 @@ which can also respond to any questions.
       <tr>
          <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source</LABEL>:</td>
          <td colspan="2">
-         
-<label for="<%=CADSR_SOURCE%>">CaDSR Source</label>
-         
                <input id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="ui-widget">
          </td>
       </tr>
