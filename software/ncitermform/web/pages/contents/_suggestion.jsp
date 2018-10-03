@@ -523,7 +523,8 @@ which can also respond to any questions.
           <tr>
             <td valign="top"><label for="<%=CADSR_SOURCE%>">Source:</label></td>
             <td colspan="2">
-              <input list="cadsrSource" name="<%=CADSR_SOURCE%>" class="select_casdr_source"/>
+              <input list="cadsrSource" id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="select_casdr_source"/>
+              
               <datalist id="cadsrSource">
                 <%
                   selectedItem = cadsr_source;
@@ -546,6 +547,9 @@ which can also respond to any questions.
       <tr>
          <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source</LABEL>:</td>
          <td colspan="2">
+         
+<label for="<%=CADSR_SOURCE%>">CaDSR Source</label>
+         
                <input id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="ui-widget">
          </td>
       </tr>
@@ -610,6 +614,10 @@ if (captcha_option.compareTo("default") == 0) {
           <%=answer_label%>: <i class="warningMsgColor">*</i>
       </td>
       <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
+      
+ <label for="anwser">Answer</label>
+      
+      
           <INPUT type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
           &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
       </td>
@@ -626,6 +634,9 @@ then enter the numbers you hear from the audio
           <%=answer_label%>: <i class="warningMsgColor">*</i>
       </td>
       <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
+      
+ <label for="anwser">Answer</label>      
+      
           <INPUT type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" />&nbsp;
           &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
       </td>

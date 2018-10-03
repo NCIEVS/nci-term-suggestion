@@ -79,19 +79,6 @@
         request.getSession().removeAttribute("retry");
   }
 
-/*  
-if (captcha_option.compareTo("default") == 0) {
-  	captcha = new Captcha.Builder(200, 50)
-	        .addText()
-	        .addBackground()
-	        //.addNoise()
-		.gimp()
-		//.addBorder()
-                .build();
-	request.getSession().setAttribute(Captcha.NAME, captcha);
-}    
-*/
-
 %>
 
   <%
@@ -224,7 +211,7 @@ if (captcha_option.compareTo("default") == 0) {
 
       <tr>
       <td class="textbody"> 
-          <LABEL FOR="answer"><%=answer_label%><LAB/EL>: <i class="warningMsgColor">*</i> 
+          <label for="answer"><%=answer_label%><LAB/EL>: <i class="warningMsgColor">*</i> 
           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
       </td>
       </tr> 
@@ -246,17 +233,17 @@ if (captcha_option.compareTo("default") == 0) {
   
     <p>
       <% if (isUserError) %> <i style="color:#FF0000;">* Required)</i>
-      <i><LABEL FOR="subject">Subject of your email</LABEL>:</i>
+      <i><label for="subject">Subject of your email</label>:</i>
     </p>
     <input class="textbody" size="100" name="subject" alt="Subject" value="<%= subject %>" onFocus="active = true" onBlur="active = false" onKeyPress="return ifenter(event,this.form)">
     <p>
       <% if (isUserError) %> <i style="color:#FF0000;">* Required)</i>
-      <i><LABEL FOR="<%= EMAIL_MSG %>">Detailed description of your problem or suggestion (no attachments):</LABEL></i>
+      <i><label for="<%= EMAIL_MSG %>">Detailed description of your problem or suggestion (no attachments):</label></i>
     </p>
-    <TEXTAREA class="textbody" Name="<%= EMAIL_MSG %>" id="<%= EMAIL_MSG %>" rows="4" cols="98"><%= email_msg %></TEXTAREA>
+    <textarea class="textbody" Name="<%= EMAIL_MSG %>" id="<%= EMAIL_MSG %>" rows="4" cols="98"><%= email_msg %></textarea>
     <p>
       <% if (isUserError) %> <i style="color:#FF0000;">* Required)</i>
-      <i><LABEL FOR="<%= EMAIL_ADDRESS %>">Your e-mail address</LABEL>:</i>
+      <i><label for="<%= EMAIL_ADDRESS %>">Your e-mail address</label>:</i>
     </p>
     <input class="textbody" size="100" name="<%= EMAIL_ADDRESS %>" alt="<%= EMAIL_ADDRESS %>" value="<%= email_address %>" onFocus="active = true" onBlur="active = false" onKeyPress="return ifenter(event,this.form)">
     <br/><br/>
@@ -277,7 +264,9 @@ if (captcha_option.compareTo("default") == 0) {
       alt="submit">
     </h:commandButton>
     
-    <input type="hidden" name="captcha_option" id="captcha_option" value="<%=alt_captcha_option%>">
+    
+<label for="captcha_option">Captcha Option<LABEL>    
+    <input type="hidden" id="captcha_option" name="captcha_option" id="captcha_option" value="<%=alt_captcha_option%>">
 
 
   </h:form>
