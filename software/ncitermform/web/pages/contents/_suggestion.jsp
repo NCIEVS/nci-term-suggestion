@@ -12,7 +12,7 @@
 <%@ page import="nl.captcha.Captcha" %>
 <%@ page import="nl.captcha.audio.AudioCaptcha" %>
 
-<html>
+<html lang="en" lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core"> 
 <head>
 <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
     <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -418,7 +418,7 @@ if (errorMsg != null) {
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=OTHER%>"><%=OTHER_LABEL%></LABEL>:</td>
-        <td colspan="2"><textarea name="<%=OTHER%>" class="newConceptTA4<%=css%>"><%=other%></textarea></td>
+        <td colspan="2"><textarea id="<%=OTHER%>" name="<%=OTHER%>" class="newConceptTA4<%=css%>"><%=other%></textarea></td>
       </tr>
       <tr>
         <td></td>
@@ -482,15 +482,15 @@ which can also respond to any questions.
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=SYNONYMS%>"><%=SYNONYMS_LABEL%></LABEL>:</td>
-        <td colspan="2"><textarea name="<%=SYNONYMS%>" class="newConceptTA2<%=css%>"><%=synonyms%></textarea></td>
+        <td colspan="2"><textarea id="<%=SYNONYMS%>" name="<%=SYNONYMS%>" class="newConceptTA2<%=css%>"><%=synonyms%></textarea></td>
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=NEAREST_CODE%>"><%=NEAREST_CODE_LABEL%></LABEL>:</td>
-        <td colspan="2"><textarea name="<%=NEAREST_CODE%>" class="newConceptTA2<%=css%>"><%=nearest_code%></textarea></td>
+        <td colspan="2"><textarea id="<%=NEAREST_CODE%>" name="<%=NEAREST_CODE%>" class="newConceptTA2<%=css%>"><%=nearest_code%></textarea></td>
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=DEFINITION%>"><%=DEFINITION_LABEL%></LABEL>:</td>
-        <td colspan="2"><textarea name="<%=DEFINITION%>" class="newConceptTA6<%=css%>"><%=definition%></textarea></td>
+        <td colspan="2"><textarea id="<%=DEFINITION%>" name="<%=DEFINITION%>" class="newConceptTA6<%=css%>"><%=definition%></textarea></td>
       </tr>
 
       <!-- =================================================================== -->
@@ -501,7 +501,7 @@ which can also respond to any questions.
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_SOURCE%>"><%=CADSR_SOURCE_LABEL%></LABEL>:</td>
             <td colspan="2">
-              <select name="<%=CADSR_SOURCE%>" class="newConceptCB2<%=css%>">
+              <select id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="newConceptCB2<%=css%>">
                 <%
                   selectedItem = cadsr_source;
                   items = AppProperties.getInstance().getCADSRSourceList();
@@ -554,7 +554,7 @@ which can also respond to any questions.
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_TYPE%>"><%=CADSR_TYPE_LABEL%></LABEL>:</td>
             <td colspan="2">
-              <select name="<%=CADSR_TYPE%>" class="newConceptCB2<%=css%>">
+              <select id="<%=CADSR_TYPE%>" name="<%=CADSR_TYPE%>" class="newConceptCB2<%=css%>">
                 <%
                   selectedItem = cadsr_type;
                   items = AppProperties.getInstance().getCADSRTypeList();
@@ -580,11 +580,11 @@ which can also respond to any questions.
       <tr><td class="newConceptSubheader" colspan="2">Additional Information:</td></tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=PROJECT%>"><%=PROJECT_LABEL%></LABEL>:</td>
-        <td colspan="2"><textarea name="<%=PROJECT%>" class="newConceptTA2<%=css%>"><%=project%></textarea></td>
+        <td colspan="2"><textarea id="<%=PROJECT%>" name="<%=PROJECT%>" class="newConceptTA2<%=css%>"><%=project%></textarea></td>
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=REASON%>"><%=REASON_LABEL%></LABEL>:</td>
-        <td colspan="2"><textarea name="<%=REASON%>" class="newConceptTA6<%=css%>"><%=reason%></textarea></td>
+        <td colspan="2"><textarea id="<%=REASON%>" name="<%=REASON%>" class="newConceptTA6<%=css%>"><%=reason%></textarea></td>
       </tr>
 
       <!-- =================================================================== -->
@@ -611,11 +611,7 @@ if (captcha_option.compareTo("default") == 0) {
           <%=answer_label%>: <i class="warningMsgColor">*</i>
       </td>
       <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-      
- <label for="anwser">Answer</label>
-      
-      
-          <INPUT type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
+          <input type="text" aria-label="Answer" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" alt="answer" />&nbsp;
           &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
       </td>
       </tr>      

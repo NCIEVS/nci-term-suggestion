@@ -12,7 +12,7 @@
 <%@ page import="nl.captcha.Captcha" %>
 <%@ page import="nl.captcha.audio.AudioCaptcha" %>
 
-<html>
+<html lang="en" lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core"> 
 <head>
 <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
     <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -353,21 +353,21 @@ request.getSession().removeAttribute("retry_cdisc");
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=NAME%>"><%=NAME_LABEL%></LABEL>:</td>
         <td colspan="2">
-          <input type="text" name="<%=NAME%>" value="<%=name%>" alt="<%=NAME%>"
+          <input type="text" id="<%=NAME%>" name="<%=NAME%>" value="<%=name%>" alt="<%=NAME%>"
           class="newConceptTF<%=css%>" <%=INPUT_ARGS%>>
         </td>
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=PHONE_NUMBER%>"><%=PHONE_NUMBER_LABEL%></LABEL>:</td>
         <td colspan="2">
-          <input type="text" name="<%=PHONE_NUMBER%>" value="<%=phone_number%>" alt="<%=PHONE_NUMBER%>"
+          <input type="text" id="<%=PHONE_NUMBER%>" name="<%=PHONE_NUMBER%>" value="<%=phone_number%>" alt="<%=PHONE_NUMBER%>"
           class="newConceptTF<%=css%>" <%=INPUT_ARGS%>>
         </td>
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=ORGANIZATION%>"><%=ORGANIZATION_LABEL%></LABEL>:</td>
         <td colspan="2">
-          <input type="text" name="<%=ORGANIZATION%>" value="<%=organization%>" alt="<%=ORGANIZATION%>"
+          <input type="text" id="<%=ORGANIZATION%>" name="<%=ORGANIZATION%>" value="<%=organization%>" alt="<%=ORGANIZATION%>"
           class="newConceptTF<%=css%>" <%=INPUT_ARGS%>>
         </td>
       </tr>
@@ -437,7 +437,7 @@ In addition, please submit a CDISC New Term Request form indicating
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_REQUEST_TYPE%>"><%=CDISC_REQUEST_TYPE_LABEL%></LABEL>:</td>
         <td colspan="2">
-          <select name="<%=CDISC_REQUEST_TYPE%>" class="newConceptCB2<%=css%>">
+          <select id="<%=CDISC_REQUEST_TYPE%>" name="<%=CDISC_REQUEST_TYPE%>" class="newConceptCB2<%=css%>">
             <%
               selectedItem = cdisc_request_type;
               items = AppProperties.getInstance().getCDISCRequestTypeList();
@@ -471,7 +471,6 @@ In addition, please submit a CDISC New Term Request form indicating
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=TERM%>"><%=TERM_LABEL%></LABEL>: <i class="warningMsgColor">*</i></td>
         <td colspan="2">
-<label for="<%=TERM%>">Term</label>
         <textarea id="<%=TERM%>" name="<%=TERM%>" class="newConceptTA2<%=css%>"><%=term%></textarea></td>
       </tr>
 
@@ -481,8 +480,7 @@ In addition, please submit a CDISC New Term Request form indicating
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=REASON%>"><%=REASON_LABEL%></LABEL>: <i class="warningMsgColor">*</i></td>
         <td colspan="2">
-<label for="<%=REASON%>">Reason</label>        
-        <textarea name="<%=REASON%>" class="newConceptTA6<%=css%>"><%=reason%></textarea></td>
+        <textarea id="<%=REASON%>" name="<%=REASON%>" class="newConceptTA6<%=css%>"><%=reason%></textarea></td>
       </tr>
 
       <!-- =================================================================== -->
@@ -512,10 +510,7 @@ In addition, please submit a CDISC New Term Request form indicating
            <%=answer_label%>: <i class="warningMsgColor">*</i>
        </td>
        <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-       
-<label for="answer">Answer</label>  
-           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
-           
+          <input type="text" aria-label="Answer" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" alt="answer" />&nbsp;
            &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
        </td>
        </tr>      
@@ -531,14 +526,9 @@ In addition, please submit a CDISC New Term Request form indicating
            <%=answer_label%>: <i class="warningMsgColor">*</i>
        </td>
        <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-<label for="answer">Answer</label>  
-           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
+            <input type="text" aria-label="Answer" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" alt="answer" />&nbsp;
            &nbsp;
-           
            <h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
-           
-         
-           
        </td>
        </tr>       
        
