@@ -1,123 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="java.util.*" %>
+<%@ page import="gov.nih.nci.evs.browser.properties.*" %>
+<%@ page import="gov.nih.nci.evs.browser.webapp.*" %>
+<%@ page import="gov.nih.nci.evs.utils.*" %>
+
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@ page contentType="text/html;charset=windows-1252"%>
-<%@ page import="java.util.*" %>
-<%@ page import="gov.nih.nci.evs.browser.webapp.*" %>
-<%@ page import="gov.nih.nci.evs.browser.properties.*" %>
-<%@ page import="gov.nih.nci.evs.utils.*" %>
-
 <%@ page import="nl.captcha.Captcha" %>
 <%@ page import="nl.captcha.audio.AudioCaptcha" %>
-
-<html lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core"> 
-<head>
-<script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
-    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>NCI Term Form</title>
-
-	<script type="text/javascript" src="<%=FormUtils.getJSPath(request)%>/utils.js"></script>
-	<link href="<%= request.getContextPath() %>/css/sc.css" type="text/css" rel="stylesheet" />    
-
-    <script>
-    
-    
-    
-function displayVocabLinkInNewWindow(id) {
-  var element = document.getElementById(id);
-  var url = element.value;
-  if (url != "")
-        element.onclick=window.open(url);
-  else
-	alert("This vocabulary does not have\nan associated home page.");
-}    
-    
-    
-    
-    
-    
-	    function getContextPath() {
-		return "<%=request.getContextPath()%>";
-	    }
-
-	    function loadAudio() {
-		var path = getContextPath() + "/audio.wav?bogus=";
-		document.getElementById("audioCaptcha").src = path + new Date().getTime();
-		document.getElementById("audioSupport").innerHTML = document.createElement('audio').canPlayType("audio/wav");
-	    }
-	    
-	    function submitOnEnter(event) {
-			if (event.which){
-				if(event.which == 13) {
-					window.submitForm('suggestion',1,{source:'submit'});
-					return false;
-				}
-			} else {
-				if(window.event.keyCode==13)
-				{
-					window.submitForm('suggestion',1,{source:'submit'});
-					return false;
-				}
-			}
-	    }
-	    
-
-
-    function submitenter(myfield,e)
-    {
-        var keycode;
-        if (window.event) keycode = window.event.keyCode;
-        else if (e) keycode = e.which;
-        else return true;
-
-        if (keycode == 13)
-        {
-            myfield.form.submit();
-            return false;
-        }
-        else
-            return true;
-    }
-
-
-
-	    function checkBlankOnEnter(event) {
-			if (event.which){
-				if(event.which == 13) {
-					return check_blank();
-				}
-			} else {
-				if(window.event.keyCode==13)
-				{
-					return check_blank();
-				}
-			}
-	    }	  	
-	    
-	    
-    </script>
-    
-  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ui-widget.css" />
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
-  <script src="<%=request.getContextPath()%>/js/jquery-1.12.4.js"></script>
-  <script src="<%=request.getContextPath()%>/js/jquery-ui.js"></script>
-
-
-  <script>
-  $( function() {
-    var str = document.getElementById("cadsr_sources_str").value;
-    var cadsr_sources = str.split(";");
-    $( "#cadsrSource" ).autocomplete({
-      source: cadsr_sources
-    });
-  } );
-  </script>    
-    
-    
-</head>
-
 <%
     boolean audio_captcha_background_noise_on = true;
     String audio_captcha_str = "audio.wav";
@@ -644,7 +537,7 @@ then enter the numbers you hear from the audio
       
       <td align="right">
 
-     <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="1"
+     <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="0"
 	onclick="return confirm('Are you sure you want clear this page?')">
 	<img src="<%=imagesPath%>/clear.gif" alt="clear" border="0"></a>
 
