@@ -14,6 +14,15 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
+
+  String template_action = HTTPUtils.cleanXSS((String) request.getParameter("action"));
+  String template_version = null;
+  if (template_action == null) {
+      template_version = BaseRequest.getVersion(request);
+  } 
+  System.out.println("(*) template_version= " + template_version);
+
+
   String basePath = FormUtils.getBasePath(request);
  
   String imagesPath = FormUtils.getImagesPath(request);
@@ -26,6 +35,9 @@
       content_quickLink = "";
       
   String content_page = HTTPUtils.cleanXSS((String) request.getParameter("content_page"));
+  
+System.out.println("content_page: " + content_page);  
+    
   
   String buildDate = AppProperties.getInstance().getBuildDate();
   String application_version = AppProperties.getInstance().getAppVersion();
@@ -142,8 +154,20 @@ height:auto;
       </div>
     <!-- End Skip Top Navigation -->      
   
+<%
+System.out.println( "header.jsp");
+%>
+  
+  
     <jsp:include page="/pages/templates/header.jsp" />
     <div class="center-page_960">
+    
+    
+<%
+System.out.println( "sub_header.jsp");
+%>    
+    
+    
       <jsp:include page="/pages/templates/sub_header.jsp" />
       <div class="mainbox-top"><img src="<%=imagesPath%>/mainbox-top.gif"
         width="941" height="5" alt="Mainbox Top" /></div>
@@ -153,6 +177,11 @@ height:auto;
             alt="Suggest Term Logo" border="0"/></a>
         </div>
         <div class="bluebar_960">
+        
+<%
+System.out.println( "content_quickLink.jsp");
+%>         
+        
           <% if (content_quickLink.length() > 0) { %>
             <jsp:include page="<%=content_quickLink%>" />
           <% } %>
@@ -160,7 +189,19 @@ height:auto;
         
         <div class="pagecontent">
           <a name="evs-content" id="evs-content" tabindex="0"></a>
+          
+<%
+System.out.println( "content_page.jsp");
+%>            
+          
+          
           <jsp:include page="<%=content_page%>" />
+          
+<%
+System.out.println( "footer.jsp");
+%>          
+          
+          
           <jsp:include page="/pages/templates/footer.jsp" />
         </div>
       </div>

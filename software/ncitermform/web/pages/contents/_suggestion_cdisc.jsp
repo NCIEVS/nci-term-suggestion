@@ -1,17 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ page import="java.util.*" %>
-<%@ page import="gov.nih.nci.evs.browser.properties.*" %>
-<%@ page import="gov.nih.nci.evs.browser.webapp.*" %>
-<%@ page import="gov.nih.nci.evs.utils.*" %>
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page import="java.util.*" %>
+<%@ page import="gov.nih.nci.evs.browser.webapp.*" %>
+<%@ page import="gov.nih.nci.evs.browser.properties.*" %>
+<%@ page import="gov.nih.nci.evs.utils.*" %>
+
 <%@ page import="nl.captcha.Captcha" %>
 <%@ page import="nl.captcha.audio.AudioCaptcha" %>
+
+<html lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+<head>
+<script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>NCI Term Form</title>
+
+	<script type="text/javascript" src="<%=FormUtils.getJSPath(request)%>/utils.js"></script>
+	<!--
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	-->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
+	<link href="<%= request.getContextPath() %>/css/sc.css" type="text/css" rel="stylesheet" /> 
+	
+	<link href="<%= request.getContextPath() %>/css/ui-widget.css" type="text/css" rel="stylesheet" />
+	
+    <script>
+    
+function displayVocabLinkInNewWindow(id) {
+  var element = document.getElementById(id);
+  var url = element.value;
+  if (url != "")
+        element.onclick=window.open(url);
+  else
+	alert("This vocabulary does not have\nan associated home page.");
+}    
+
+
+		function openNewWindow(url) {
+		    window.open(url, '_blank', 'top=100, left=100, height=740, width=780, status=no, menubar=yes, resizable=yes, scrollbars=yes, toolbar=yes, location=no, directories=no');
+		}
+    
+	    function getContextPath() {
+		return "<%=request.getContextPath()%>";
+	    }
+
+
+	    function loadAudio() {
+		var path = getContextPath() + "/audio.wav?bogus=";
+		document.getElementById("audioCaptcha").src = path + new Date().getTime();
+		document.getElementById("audioSupport").innerHTML = document.createElement('audio').canPlayType("audio/wav");
+	    }
+	    
+	    function submitOnEnter(form, event) {
+			if (event.which){
+				if(event.which == 13) {
+					window.submitForm('suggestion',1,{source:'submit'});
+					return false;
+				}
+			} else {
+				if(window.event.keyCode==13)
+				{
+					window.submitForm('suggestion',1,{source:'submit'});
+					return false;
+				}
+			}
+	    }		    
+    </script>
+  
+  <script src="<%= request.getContextPath()%>/js/jquery-1.12.4.js"></script>
+  <script src="<%= request.getContextPath()%>/js/jquery-ui.js"></script>
+
+
+  <script>
+  $( function() {
+    var str = document.getElementById("cdisc_codes_str").value;
+    var cdisc_codes = str.split(";");
+    $( "#cdiscCodeList" ).autocomplete({
+      source: cdisc_codes
+    });
+  } );
+  </script>    
+    
+    
+</head>
+
 <%
+
+  //Prop.Version versionSession = (Prop.Version) 
+  //   request.getSession().getAttribute(FormRequest.VERSION);
+  
     String cdisc_codes = AppProperties.getInstance().getCDISCCodes();
     cdisc_codes = cdisc_codes.replaceAll("; ", ";");
 
@@ -31,8 +111,8 @@
           alt_captcha_option = "default";
     }    
 
-    Captcha captcha = (Captcha) request.getSession().getAttribute("captcha");
-    AudioCaptcha ac = null;  
+  Captcha captcha = (Captcha) request.getSession().getAttribute("captcha");
+  AudioCaptcha ac = null;  
   
     String errorMsg = (String) request.getSession().getAttribute("errorMsg");
     if (errorMsg != null) {
@@ -47,6 +127,8 @@
 %>    
 
 <body>
+
+
 <%!
   // List of parameter name(s):
   private static final String DICTIONARY = "dictionary";
@@ -262,13 +344,12 @@ request.getSession().removeAttribute("retry_cdisc");
         <td colspan="2">
           <input type="text" id="<%=EMAIL%>" name="<%=EMAIL%>" value="<%=email%>" alt="<%=EMAIL%>"
           class="newConceptTF<%=css%>" <%=INPUT_ARGS%>>
-          
         </td>
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=NAME%>"><%=NAME_LABEL%></LABEL>:</td>
         <td colspan="2">
-          <input type="text" id="<%=NAME%>" name="<%=NAME%>" value="<%=name%>" alt="<%=NAME%>"
+          <input type="text" id="<%= NAME%>"name="<%=NAME%>" value="<%=name%>" alt="<%=NAME%>"
           class="newConceptTF<%=css%>" <%=INPUT_ARGS%>>
         </td>
       </tr>
@@ -369,13 +450,43 @@ In addition, please submit a CDISC New Term Request form indicating
           </select>
         </td>
       </tr>
-            
+<!--
       <tr>
          <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
          <td colspan="2" >
                <input id="<%=CDISC_CODES%>" name="<%=CDISC_CODES%>" class="ui-widget">
          </td>
-      </tr>      
+      </tr>   
+
+-->
+ <%
+ String cdisc_source = (String) request.getSession().getAttribute(CDISC_CODES);
+ System.out.println("cdisc_source: " + cdisc_source);
+ %>
+ 
+           <tr>
+             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CDISC_CODES%>"><%=CDISC_CODES_LABEL%></LABEL>:</td>
+             <td colspan="2">
+               <select id="<%=CDISC_CODES%>" name="<%=CDISC_CODES%>" class="newConceptCB2<%=css%>">
+                 <%
+                   selectedItem = cdisc_source;
+                   items = AppProperties.getInstance().getCDISCCodeList();
+                   for (i=0; i<items.length; ++i) {
+                     String item = items[i];
+                     String args = "";
+                     if (selectedItem != null && item.equals(selectedItem))
+                       args += "selected=\"true\"";
+                 %>
+                       <option value="<%=item%>" <%=args%>><%=item%></option>
+                 <%
+                   }
+                 %>
+               </select>
+             </td>
+          </tr>
+          
+          
+          
       
       <tr>
         <td></td>
@@ -385,8 +496,7 @@ In addition, please submit a CDISC New Term Request form indicating
       </tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=TERM%>"><%=TERM_LABEL%></LABEL>: <i class="warningMsgColor">*</i></td>
-        <td colspan="2">
-        <textarea id="<%=TERM%>" name="<%=TERM%>" class="newConceptTA2<%=css%>"><%=term%></textarea></td>
+        <td colspan="2"><textarea id="<%=TERM%>" name="<%=TERM%>" class="newConceptTA2<%=css%>"><%=term%></textarea></td>
       </tr>
 
       <!-- =================================================================== -->
@@ -394,8 +504,7 @@ In addition, please submit a CDISC New Term Request form indicating
       <tr><td class="newConceptSubheader" colspan="2">Additional Information:</td></tr>
       <tr>
         <td <%=LABEL_ARGS%>><LABEL FOR="<%=REASON%>"><%=REASON_LABEL%></LABEL>: <i class="warningMsgColor">*</i></td>
-        <td colspan="2">
-        <textarea id="<%=REASON%>" name="<%=REASON%>" class="newConceptTA6<%=css%>"><%=reason%></textarea></td>
+        <td colspan="2"><textarea id="<%=REASON%>" name="<%=REASON%>" class="newConceptTA6<%=css%>"><%=reason%></textarea></td>
       </tr>
 
       <!-- =================================================================== -->
@@ -425,7 +534,8 @@ In addition, please submit a CDISC New Term Request form indicating
            <%=answer_label%>: <i class="warningMsgColor">*</i>
        </td>
        <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-          <input type="text" aria-label="Answer" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" alt="answer" />&nbsp;
+           <LABEL FOR="answer">Answer</LABEL>
+           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
            &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
        </td>
        </tr>      
@@ -441,9 +551,9 @@ In addition, please submit a CDISC New Term Request form indicating
            <%=answer_label%>: <i class="warningMsgColor">*</i>
        </td>
        <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-            <input type="text" aria-label="Answer" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" alt="answer" />&nbsp;
-           &nbsp;
-           <h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
+           <LABEL FOR="answer">Answer</LABEL>
+           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
+           &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
        </td>
        </tr>       
        

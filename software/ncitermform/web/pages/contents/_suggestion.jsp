@@ -11,6 +11,7 @@
 
 <%@ page import="nl.captcha.Captcha" %>
 <%@ page import="nl.captcha.audio.AudioCaptcha" %>
+
 <%
     boolean audio_captcha_background_noise_on = true;
     String audio_captcha_str = "audio.wav";
@@ -390,7 +391,7 @@ which can also respond to any questions.
       <%
           if (version != null && version.compareToIgnoreCase("CADSR") == 0) {
       %>
-      <!--
+
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_SOURCE%>"><%=CADSR_SOURCE_LABEL%></LABEL>:</td>
             <td colspan="2">
@@ -411,39 +412,16 @@ which can also respond to any questions.
               </select>
             </td>
           </tr>
-      -->
-      <!--
-          <tr>
-            <td valign="top"><label for="<%=CADSR_SOURCE%>">Source:</label></td>
-            <td colspan="2">
-              <input list="cadsrSource" id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="select_casdr_source"/>
-              
-              <datalist id="cadsrSource">
-                <%
-                  selectedItem = cadsr_source;
-                  items = AppProperties.getInstance().getCADSRSourceList();
-                  for (i=0; i<items.length; ++i) {
-                    String item = items[i];
-                    String args = "";
-                    if (item.equals(selectedItem))
-                      args += "selected=\"true\"";
-                %>
-                      <option value="<%=item%>" <%=args%>><%=item%></option>
-                <%
-                  }
-                %>
-              </select>
-            </td>
-          </tr>      
-      -->   
 
+   
+<!--
       <tr>
          <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source</LABEL>:</td>
          <td colspan="2">
                <input id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="ui-widget">
          </td>
       </tr>
-          
+-->          
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_TYPE%>"><%=CADSR_TYPE_LABEL%></LABEL>:</td>
             <td colspan="2">
