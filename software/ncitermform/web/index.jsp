@@ -6,7 +6,6 @@
   if (action == null) {
       version = BaseRequest.getVersion(request);
   } 
-  System.out.println("(*) index.jsp version= " + version);
 %>
 <html>
   <body>
