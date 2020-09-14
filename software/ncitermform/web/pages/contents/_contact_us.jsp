@@ -164,71 +164,12 @@ if (errorMsg != null) {
       EVS Web site</a>.
   </div>
 
-
   <p><b>Online Form</b></p>
   <p <%= color %>>
     To use this web form, please fill in every box below and then click on 'Submit'. 
   </p>
   
   <h:form styleClass="search-form" acceptcharset="UTF-8">
-<p>
-<table role='presentation'>
-<%
-String answer_label = "Enter the characters appearing in the above image";
-
-if (captcha_option.compareTo("default") == 0) {
-%>
-      <tr>
-      <td class="textbody">
-             <img src="<c:url value="/nci.simpleCaptcha.png"  />" alt="simpleCaptcha.png">
-             
-       &nbsp;<h:commandLink value="Unable to read this image?" action="#{userSessionBean.regenerateCaptchaImage}" />
-       <br/>             
-      </td>
-      </tr>
-      
-
-<%
-} else {
-      answer_label = "Enter the numbers you hear from the audio";
-%>
-
-<tr>
-<td>
-<p class="textbody">Click 
-
-
-<a href="<%=request.getContextPath()%>/<%=audio_captcha_str%> ">here</a> to listen to the audio. 
-</td>
-</tr>
-
-
-<%
-} 
-%>
-
-      <tr>
-      <td class="textbody"> 
-          <label for="answer"><%=answer_label%><LAB/EL>: <i class="warningMsgColor">*</i> 
-          <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
-      </td>
-      </tr> 
-      
-      
-      <tr>
-      <td class="textbody">
-       <h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
-       <br/>             
-      </td>
-      </tr>
-     
-
-      </table>  
-      
-</p>    
- 
-  
-  
     <p>
       <% if (isUserError) %> <i style="color:#FF0000;">* Required)</i>
       <i><label for="subject">Subject of your email</label>:</i>
