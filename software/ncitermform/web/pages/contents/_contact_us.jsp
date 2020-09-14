@@ -263,17 +263,19 @@ if (captcha_option.compareTo("default") == 0) {
     </h:commandButton>
     <img src="<%=imagesPath%>/spacer.gif" alt="spacer" width="1" />
     
-    <!--
+    
     <h:commandButton
       id="mail"
       value="submit"
       image="/images/submit.gif"
+      onclick="backend_API_challenge();"
       action="#{userSessionBean.contactUs}"
       alt="submit">
     </h:commandButton>
-    -->
     
+    <!--
     <input type="button" src="images/submit.gif" onclick="backend_API_challenge();" value="submit"></input>
+    -->
     
     <!--
 <label for="captcha_option">Captcha Option<LABEL>    
