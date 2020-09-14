@@ -577,6 +577,12 @@ public class UserSessionBean {
 			return "retry";
 		}
 
+
+		request.getSession().setAttribute("message", msg);
+		return new ContactUsRequest().submitForm();
+
+
+/*
         String captcha_option = HTTPUtils.cleanXSS((String) request.getParameter("captcha_option"));
         if (isNull(captcha_option)) {
 			captcha_option = "default";
@@ -586,7 +592,6 @@ public class UserSessionBean {
 		} else {
 			captcha_option = "audio";
 		}
-
 
         try {
     		String retstr = null;
@@ -621,6 +626,9 @@ public class UserSessionBean {
             e.printStackTrace();
             return "error";
         }
+
+*/
+
     }
 
     public String clearContactUs() {
