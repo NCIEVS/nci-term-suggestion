@@ -61,6 +61,36 @@
         document.getElementById("audioCaptcha").src = path + new Date().getTime();
         document.getElementById("audioSupport").innerHTML = document.createElement('audio').canPlayType("audio/wav");
     }
+
+<!--    
+	function checkRecaptcha() {
+	  var response = grecaptcha.getResponse();
+	  if(response.length == 0) {
+	    //reCaptcha not verified
+	    alert("no pass");
+	  }
+	  else {
+	    //reCaptch verified
+	    alert("pass");
+	  }
+	}    
+-->
+
+function backend_API_challenge() {
+    var response = grecaptcha.getResponse();
+    $.ajax({
+        type: "POST",
+        url: 'https://www.google.com/recaptcha/api/siteverify',
+        data: {"secret" : "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy9", "response" : response, "remoteip":"localhost"},
+        contentType: 'application/x-www-form-urlencoded',
+        success: function(data) { 
+           //console.log(data); 
+           alert("pass");
+        }
+    });
+}
+
+        
     </script>    
     
     

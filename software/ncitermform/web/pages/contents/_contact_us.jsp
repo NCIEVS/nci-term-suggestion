@@ -248,7 +248,10 @@ if (captcha_option.compareTo("default") == 0) {
    <input class="textbody" size="100" id="<%= EMAIL_ADDRESS %>" name="<%= EMAIL_ADDRESS %>" alt="<%= EMAIL_ADDRESS %>" value="<%= email_address %>" onFocus="active = true" onBlur="active = false" onKeyPress="return ifenter(event,this.form)">
     <br/><br/>
 
+
 <div class="g-recaptcha" data-sitekey="6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR"></div>
+
+
 <br/>
     
     <h:commandButton
@@ -258,7 +261,9 @@ if (captcha_option.compareTo("default") == 0) {
       action="#{userSessionBean.clearContactUs}"
       alt="clear">
     </h:commandButton>
-           <img src="<%=imagesPath%>/spacer.gif" alt="spacer" width="1" />
+    <img src="<%=imagesPath%>/spacer.gif" alt="spacer" width="1" />
+    
+    <!--
     <h:commandButton
       id="mail"
       value="submit"
@@ -266,6 +271,9 @@ if (captcha_option.compareTo("default") == 0) {
       action="#{userSessionBean.contactUs}"
       alt="submit">
     </h:commandButton>
+    -->
+    
+    <input type="button" src="/images/submit.gif" onclick="backend_API_challenge();" value="submit"></input>
     
     
 <label for="captcha_option">Captcha Option<LABEL>    
