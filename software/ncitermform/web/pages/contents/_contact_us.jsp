@@ -171,7 +171,6 @@ if (errorMsg != null) {
   </p>
   
   <h:form styleClass="search-form" acceptcharset="UTF-8">
-  
 <p>
 <table role='presentation'>
 <%
@@ -187,8 +186,7 @@ if (captcha_option.compareTo("default") == 0) {
        <br/>             
       </td>
       </tr>
-
-       
+      
 
 <%
 } else {
