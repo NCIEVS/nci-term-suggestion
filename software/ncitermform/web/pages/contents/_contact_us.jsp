@@ -187,11 +187,11 @@ if (errorMsg != null) {
    <input class="textbody" size="100" id="<%= EMAIL_ADDRESS %>" name="<%= EMAIL_ADDRESS %>" alt="<%= EMAIL_ADDRESS %>" value="<%= email_address %>" onFocus="active = true" onBlur="active = false" onKeyPress="return ifenter(event,this.form)">
     <br/><br/>
 
-<!--
-<div class="g-recaptcha" data-sitekey="6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR"></div>
--->
-<div class="g-recaptcha" data-sitekey="6LfoOswZAAAAACLHbl3WMPusBNs5Anzje1it0XQZ"></div>
 
+<div class="g-recaptcha" data-sitekey="6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR"></div>
+<!--
+<div class="g-recaptcha" data-sitekey="6LfoOswZAAAAACLHbl3WMPusBNs5Anzje1it0XQZ"></div>
+-->
 
 <br/>
     

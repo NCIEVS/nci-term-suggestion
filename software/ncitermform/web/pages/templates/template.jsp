@@ -82,8 +82,8 @@ function backend_API_challenge() {
         type: "POST",
         url: 'https://www.google.com/recaptcha/api/siteverify',
         //data: {"secret" : "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy9", "response" : response, "remoteip":"localhost"},
-        //data: {"secret" : "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy9", "response" : response},
-        data: {"secret" : "6LfoOswZAAAAAGE0G5n94UqPosu7Jk83b1l2W0ro", "response" : response},
+        data: {"secret" : "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy9", "response" : response},
+        //data: {"secret" : "6LfoOswZAAAAAGE0G5n94UqPosu7Jk83b1l2W0ro", "response" : response},
         contentType: 'application/x-www-form-urlencoded',
         success: function(data) { 
            //console.log(data); 
