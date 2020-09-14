@@ -85,10 +85,10 @@ function backend_API_challenge() {
         contentType: 'application/x-www-form-urlencoded',
         success: function(data) { 
            //console.log(data); 
-           alert("pass");
+           //alert("pass");
            
-            String redirectURL = request.getContextPath() + "/redirect?action='contactus";
-            response.sendRedirect(redirectURL);
+           // String redirectURL = request.getContextPath() + "/redirect?action='contactus";
+           // response.sendRedirect(redirectURL);
            
         }
     });
