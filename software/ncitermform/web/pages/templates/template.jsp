@@ -86,6 +86,10 @@ function backend_API_challenge() {
         success: function(data) { 
            //console.log(data); 
            alert("pass");
+           
+            String redirectURL = request.getContextPath() + "/redirect?action='contactus";
+            response.sendRedirect(redirectURL);
+           
         }
     });
 }

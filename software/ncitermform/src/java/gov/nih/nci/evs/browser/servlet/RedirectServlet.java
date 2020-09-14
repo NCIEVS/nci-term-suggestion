@@ -67,6 +67,11 @@ import gov.nih.nci.evs.utils.*;
 
 
 public final class RedirectServlet extends HttpServlet {
+
+    public static final String PLEASE_COMPLETE_DATA_ENTRIES = "Please complete data entries.";
+    public static final String INVALID_EMAIL_ADDRESS = "WARNING: Invalid email address.";
+
+
     //private static Logger _logger = Logger.getLogger(RedirectServlet.class);
 
     /**
@@ -151,6 +156,15 @@ public final class RedirectServlet extends HttpServlet {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+		String action = HTTPUtils.cleanXSS((String) request.getParameter("action"));
+        if (action != null && action.compareToIgnoreCase("contactUs") == 0) {
+			try {
+				contactUs(request, response);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
         String version = HTTPUtils.cleanXSS((String) request.getParameter("version"));
         if (version != null && version.compareToIgnoreCase("CDISC") == 0) {
             resetCDISCSessionVariables(request);
@@ -163,6 +177,107 @@ public final class RedirectServlet extends HttpServlet {
 		}
 	}
 
+	public static boolean isNull(String s) {
+		if (s == null) return true;
+		s = s.trim();
+		if (s.compareTo("") == 0) return true;
+		return false;
+	}
 
+
+    public String contactUs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		System.out.println("RedirectServlet contactUs ");
+
+        String msg = "Your message was successfully sent.";
+        /*
+        HttpServletRequest request =
+            (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequest();
+        */
+        request.getSession().removeAttribute("errorMsg");
+        request.getSession().removeAttribute("errorType");
+        request.getSession().removeAttribute("retry");
+
+		String answer = HTTPUtils.cleanXSS((String) request.getParameter(ContactUsRequest.ANSWER));
+		String subject = HTTPUtils.cleanXSS((String) request.getParameter(ContactUsRequest.SUBJECT));
+		String message = HTTPUtils.cleanXSS((String) request.getParameter(ContactUsRequest.EMAIL_MSG));
+		String from    = HTTPUtils.cleanXSS((String) request.getParameter(ContactUsRequest.EMAIL_ADDRESS));
+
+		request.getSession().setAttribute(ContactUsRequest.ANSWER, answer);
+		request.getSession().setAttribute(ContactUsRequest.SUBJECT, subject);
+		request.getSession().setAttribute(ContactUsRequest.EMAIL_MSG, message);
+		request.getSession().setAttribute(ContactUsRequest.EMAIL_ADDRESS, from);
+
+
+		if (isNull(answer) || isNull(subject) || isNull(message) || isNull(from)) {
+			msg = PLEASE_COMPLETE_DATA_ENTRIES;
+			request.getSession().setAttribute("errorMsg", msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
+
+		boolean emailAddressValid = MailUtils.isValidEmailAddress(from);
+		if (!emailAddressValid) {
+			msg = INVALID_EMAIL_ADDRESS;
+			request.getSession().setAttribute("errorMsg", msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
+
+/*
+        String captcha_option = HTTPUtils.cleanXSS((String) request.getParameter("captcha_option"));
+        if (isNull(captcha_option)) {
+			captcha_option = "default";
+		}
+		if (captcha_option.compareTo("audio") == 0) {
+			captcha_option = "default";
+		} else {
+			captcha_option = "audio";
+		}
+
+
+        try {
+    		String retstr = null;
+    		if (captcha_option.compareTo("audio") == 0) {
+				retstr = validateAudioCaptcha(request, "incomplete");
+			} else {
+				retstr = validateCaptcha(request, "incomplete");
+			}
+			request.getSession().setAttribute("message", msg);
+			return new ContactUsRequest().submitForm();
+
+        } catch (NoReloadException e) {
+            msg = e.getMessage();
+            request.getSession().setAttribute("errorMsg", toHtml(msg));
+            request.getSession().setAttribute("errorType", "user");
+            return "retry";
+
+        } catch (InvalidCaptChaInputException e) {
+            msg = e.getMessage();
+            request.getSession().setAttribute("errorMsg", toHtml(msg));
+            request.getSession().setAttribute("answer", "");
+            request.getSession().setAttribute("errorType", "user");
+            return "retry";
+
+        } catch (Exception e) {
+            msg = "Your message was not sent.\n";
+            msg += "    (If possible, please contact NCI systems team.)\n";
+            msg += "\n";
+            msg += e.getMessage();
+            request.getSession().setAttribute("errorMsg", toHtml(msg));
+            request.getSession().setAttribute("errorType", "system");
+            e.printStackTrace();
+            return "error";
+        }
+*/
+        return "message";
+    }
+
+    public static String toHtml(String text) {
+        text = text.replaceAll("\n", "<br/>");
+        text = text.replaceAll("  ", "&nbsp;&nbsp;");
+        return text;
+    }
 
 }

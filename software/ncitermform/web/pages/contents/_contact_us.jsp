@@ -273,11 +273,13 @@ if (captcha_option.compareTo("default") == 0) {
     </h:commandButton>
     -->
     
-    <input type="button" src="/images/submit.gif" onclick="backend_API_challenge();" value="submit"></input>
+    <input type="button" src="images/submit.gif" onclick="backend_API_challenge();" value="submit"></input>
     
-    
+    <!--
 <label for="captcha_option">Captcha Option<LABEL>    
     <input type="hidden" id="captcha_option" name="captcha_option" id="captcha_option" value="<%=alt_captcha_option%>">
+    -->
+    
 
   </h:form>
   <br/>
