@@ -562,7 +562,8 @@ public class UserSessionBean {
 		request.getSession().setAttribute(ContactUsRequest.EMAIL_MSG, message);
 		request.getSession().setAttribute(ContactUsRequest.EMAIL_ADDRESS, from);
 
-		if (isNull(answer) || isNull(subject) || isNull(message) || isNull(from)) {
+		//if (isNull(answer) || isNull(subject) || isNull(message) || isNull(from)) {
+		if (isNull(subject) || isNull(message) || isNull(from)) {
 			msg = PLEASE_COMPLETE_DATA_ENTRIES;
 			request.getSession().setAttribute("errorMsg", msg);
 			request.getSession().setAttribute("retry", "true");
@@ -576,11 +577,8 @@ public class UserSessionBean {
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
 		}
-
-
 		request.getSession().setAttribute("message", msg);
 		return new ContactUsRequest().submitForm();
-
 
 /*
         String captcha_option = HTTPUtils.cleanXSS((String) request.getParameter("captcha_option"));
