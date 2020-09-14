@@ -9,5 +9,6 @@
     <jsp:param name="content_page" value="/pages/contents/_contact_us.jsp"/>
   </jsp:forward>
 <script type="text/javascript">_satellite.pageBottom();</script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
  </body>
 </html>
