@@ -247,6 +247,9 @@ if (captcha_option.compareTo("default") == 0) {
     </p>
    <input class="textbody" size="100" id="<%= EMAIL_ADDRESS %>" name="<%= EMAIL_ADDRESS %>" alt="<%= EMAIL_ADDRESS %>" value="<%= email_address %>" onFocus="active = true" onBlur="active = false" onKeyPress="return ifenter(event,this.form)">
     <br/><br/>
+
+<div class="g-recaptcha" data-sitekey="6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR"></div>
+<br/>
     
     <h:commandButton
       id="clear"
@@ -267,8 +270,6 @@ if (captcha_option.compareTo("default") == 0) {
     
 <label for="captcha_option">Captcha Option<LABEL>    
     <input type="hidden" id="captcha_option" name="captcha_option" id="captcha_option" value="<%=alt_captcha_option%>">
-<p></p>
-<div class="g-recaptcha" data-sitekey="6Ldbdg0TAAAAAI7KAf72Q6uagbWzWecTeBWmrCpJ"></div>
 
   </h:form>
   <br/>
