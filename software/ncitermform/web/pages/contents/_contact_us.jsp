@@ -35,7 +35,6 @@
   boolean isUserError = Prop.WarningType.valueOfOrDefault(warningType) == Prop.WarningType.User;
 
   String recaptcha_site_key = AppProperties.getInstance().getRecaptchaSiteKey();  
-  String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();  
     
   
   String subject = HTTPUtils.getJspAttributeString(request, SUBJECT);

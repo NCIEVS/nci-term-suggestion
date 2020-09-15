@@ -224,6 +224,8 @@ function displayVocabLinkInNewWindow(id) {
   String[] items = null;
   String selectedItem = null;
   String css = WebUtils.isUsingIE(request) ? "_IE" : "";
+  String recaptcha_site_key = AppProperties.getInstance().getRecaptchaSiteKey();  
+  
 %>
 <f:view>
 
@@ -508,57 +510,12 @@ In addition, please submit a CDISC New Term Request form indicating
 
       <!-- =================================================================== -->
  
- <%
- 
- String answer = "";
- String answer_label = "Enter the characters appearing in the above image";
- if (captcha_option.compareTo("default") != 0) {
-     answer_label = "";
- }
- 
- if (captcha_option.compareTo("default") == 0) {
- %>
-      <tr><td class="newConceptSubheader" colspan="2">Security Code:</td></tr>
-      <tr>  
-      <td></td>
-      <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-              <img src="<c:url value="/nci.simpleCaptcha.png"  />" alt="simpleCaptcha.png">
-        &nbsp;<h:commandLink value="Unable to read this image?" action="#{userSessionBean.regenerateCaptchaImage}" />
-      </td>
-      </tr> 
-      
-       <tr>
-       <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>"> 
-           <%=answer_label%>: <i class="warningMsgColor">*</i>
-       </td>
-       <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-           <LABEL FOR="answer">Answer</LABEL>
-           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
-           &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
-       </td>
-       </tr>      
-      
- <%
- } else {
- %>
-      <tr>
- <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
- Click <a href="<%=request.getContextPath()%>/<%=audio_captcha_str%> ">here</a> to listen to the audio, 
- then enter the numbers you hear from the audio
- 
-           <%=answer_label%>: <i class="warningMsgColor">*</i>
-       </td>
-       <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-           <LABEL FOR="answer">Answer</LABEL>
-           <input type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>"/>&nbsp;
-           &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
-       </td>
-       </tr>       
-       
- <%
- } 
-%>
-      
+<tr>
+<td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">Please check the checkbox.</td>
+<td>
+<div class="g-recaptcha" data-sitekey="<%=recaptcha_site_key%>"></div>
+</td></tr>
+
       <tr>
         <td class="newConceptNotes"><i class="warningMsgColor">* Required</i></td>
         <td colspan="2" align="right">
@@ -572,6 +529,7 @@ In addition, please submit a CDISC New Term Request form indicating
            <h:commandButton
              id="submit"
              value="submit"
+             onclick="return verifyRecaptcha();"
              action="#{userSessionBean.requestSuggestionCDISC}"
              image="/images/submit.gif"
               alt="submit">

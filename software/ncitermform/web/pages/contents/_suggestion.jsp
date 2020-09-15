@@ -44,6 +44,7 @@
         request.getSession().removeAttribute("retry");
   }
 
+  String recaptcha_site_key = AppProperties.getInstance().getRecaptchaSiteKey();  
 %>    
     
 <body>
@@ -413,15 +414,7 @@ which can also respond to any questions.
             </td>
           </tr>
 
-   
-<!--
-      <tr>
-         <td valign="top" ><LABEL FOR="<%=CADSR_SOURCE%>">Source</LABEL>:</td>
-         <td colspan="2">
-               <input id="<%=CADSR_SOURCE%>" name="<%=CADSR_SOURCE%>" class="ui-widget">
-         </td>
-      </tr>
--->          
+      
           <tr>
             <td <%=LABEL_ARGS%>><LABEL FOR="<%=CADSR_TYPE%>"><%=CADSR_TYPE_LABEL%></LABEL>:</td>
             <td colspan="2">
@@ -459,60 +452,17 @@ which can also respond to any questions.
       </tr>
 
       <!-- =================================================================== -->
-      
-<%
-String answer_label = "Enter the characters appearing in the above image";
-if (captcha_option.compareTo("default") != 0) {
-    answer_label = "";
-}
 
-if (captcha_option.compareTo("default") == 0) {
-%>
-      <tr><td class="newConceptSubheader" colspan="2">Security Code:</td></tr>
-      <tr>  
-      <td></td>
-      <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-             <img src="<c:url value="/nci.simpleCaptcha.png"  />" alt="simpleCaptcha.png">
-       &nbsp;<h:commandLink value="Unable to read this image?" action="#{userSessionBean.regenerateCaptchaImage}" />
-     </td>
-     </tr> 
-     
-      <tr>
-      <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>"> 
-          <%=answer_label%>: <i class="warningMsgColor">*</i>
-      </td>
-      <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-          <input type="text" aria-label="Answer" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" alt="answer" />&nbsp;
-          &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
-      </td>
-      </tr>      
-     
-<%
-} else {
-%>
-     <tr>
-<td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-Click <a href="<%=request.getContextPath()%>/<%=audio_captcha_str%> ">here</a> to listen to the audio, 
-then enter the numbers you hear from the audio
 
-          <%=answer_label%>: <i class="warningMsgColor">*</i>
-      </td>
-      <td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">
-      
- <label for="anwser">Answer</label>      
-      
-          <INPUT type="text" id="answer" name="answer" value="<%=HTTPUtils.cleanXSS(answer)%>" />&nbsp;
-          &nbsp;<h:commandLink value="Prefer an alternative form of CAPTCHA?" action="#{userSessionBean.switchCaptchaMode}" />
-      </td>
-      </tr>       
-      
-<%
-} 
-%>
-      
+<tr>
+<td <%=LABEL_ARGS%> class="newConceptTA6<%=css%>">Please check the checkbox.</td>
+<td>
+<div class="g-recaptcha" data-sitekey="<%=recaptcha_site_key%>"></div>
+</td></tr>
+
       <tr>
       <td <%=LABEL_ARGS%> class="newConceptNotes"><i class="warningMsgColor">* Required</i></td>
-      
+
       <td align="right">
 
      <a href="<%= request.getContextPath() %>/redirect?version=<%=version%>" tabindex="0"
@@ -524,6 +474,7 @@ then enter the numbers you hear from the audio
            <h:commandButton
              id="submit"
              value="submit"
+             onclick="return verifyRecaptcha();"
              action="#{userSessionBean.requestSuggestion}"
              image="/images/submit.gif"
               alt="submit">

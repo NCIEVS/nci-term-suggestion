@@ -209,9 +209,20 @@ public class UserSessionBean {
     public String requestSuggestion() {
 		HttpServletRequest request = HTTPUtils.getRequest();
 		saveSessionVariables(request);
+		String msg = "Your message was successfully sent.";
+        String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
+        String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();
+        JSONObject json = new CaptchaUtils().getCaptchaJsonResponse(recaptcha_security_key, request.getParameter("g-recaptcha-response"));
+        String json_str = json.toString();
 
-        String answer = HTTPUtils.cleanXSS((String) request.getParameter("answer"));
-        String msg = "Your message was successfully sent.";
+        if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+			msg = INCOMPLETE_CAPTCHA_RESPONSE;
+			request.getSession().setAttribute("errorMsg", msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
+
+        //String answer = HTTPUtils.cleanXSS((String) request.getParameter("answer"));
 
 		String email = HTTPUtils.cleanXSS((String) request.getParameter(SuggestionRequest.EMAIL));
 		if (isNull(email))
@@ -230,7 +241,7 @@ public class UserSessionBean {
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
 		}
-
+/*
         String captcha_option = HTTPUtils.cleanXSS((String) request.getParameter("captcha_option"));
         if (isNull(captcha_option)) {
 			captcha_option = "default";
@@ -252,7 +263,7 @@ public class UserSessionBean {
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
 		}
-
+*/
 		String[] required_fields = SuggestionRequest.get_REQUIRED_FIELDS();
 		for (int i=0; i<required_fields.length; i++) {
 			String parameter = required_fields[i];
@@ -264,8 +275,6 @@ public class UserSessionBean {
 				return "retry";
 			}
 		}
-
-
 		boolean emailAddressValid = MailUtils.isValidEmailAddress(email);
 		if (!emailAddressValid) {
 			msg = INVALID_EMAIL_ADDRESS;
@@ -273,7 +282,7 @@ public class UserSessionBean {
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
 		}
-
+/*
         try {
     		String retstr = null;
     		if (captcha_option.compareTo("audio") == 0) {
@@ -306,9 +315,20 @@ public class UserSessionBean {
 
             return "incomplete";
         }
+*/
+        try {
+			request.getSession().setAttribute("message", msg);
+			return new SuggestionRequest().submitForm();
+	    } catch (Exception e) {
+            msg = e.getMessage();
+            request.getSession().setAttribute("message", msg);
+            if (! (e instanceof NoReloadException))
+                request.getSession().setAttribute("reload", "true");
+
+            return "incomplete";
+		}
 
     }
-
 
     public void saveCDISCSessionVariables(HttpServletRequest request) {
         String email = null;
@@ -389,6 +409,18 @@ public class UserSessionBean {
 		saveCDISCSessionVariables(request);
 		request.getSession().setAttribute("version", "CDISC");
 		String msg = "Your message was successfully sent.";
+        String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
+        String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();
+        JSONObject json = new CaptchaUtils().getCaptchaJsonResponse(recaptcha_security_key, request.getParameter("g-recaptcha-response"));
+        String json_str = json.toString();
+
+        if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+			msg = INCOMPLETE_CAPTCHA_RESPONSE;
+			request.getSession().setAttribute("errorMsg", msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
+
 
 		String email = HTTPUtils.cleanXSS((String) request.getParameter(SuggestionRequest.EMAIL));
 		if (isNull(email))
@@ -407,7 +439,7 @@ public class UserSessionBean {
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
 		}
-
+/*
         String answer = HTTPUtils.cleanXSS((String) request.getParameter("answer"));
 
         String captcha_option = HTTPUtils.cleanXSS((String) request.getParameter("captcha_option"));
@@ -431,7 +463,7 @@ public class UserSessionBean {
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
 		}
-
+*/
 		String[] required_fields = SuggestionCDISCRequest.get_REQUIRED_FIELDS();
 		for (int i=0; i<required_fields.length; i++) {
 			String parameter = required_fields[i];
@@ -454,7 +486,7 @@ public class UserSessionBean {
 			return "retry";
 		}
 
-
+/*
         try {
     		String retstr = null;
     		if (captcha_option.compareTo("audio") == 0) {
@@ -487,6 +519,19 @@ public class UserSessionBean {
 
             return "incomplete_cdisc";
         }
+*/
+
+        try {
+			request.getSession().setAttribute("message", msg);
+			return new SuggestionCDISCRequest().submitForm();
+	    } catch (Exception e) {
+            msg = e.getMessage();
+            request.getSession().setAttribute("message", msg);
+            if (! (e instanceof NoReloadException))
+                request.getSession().setAttribute("reload", "true");
+
+            return "incomplete";
+		}
 
     }
 
