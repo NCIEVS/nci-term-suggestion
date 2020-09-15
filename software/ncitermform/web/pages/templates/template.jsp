@@ -24,6 +24,8 @@ Constants.SECURITY_KEY
   String buildDate = AppProperties.getInstance().getBuildDate();
   String application_version = AppProperties.getInstance().getAppVersion();
   String anthill_build_tag_built = AppProperties.getInstance().getAnthillBuildTagBuilt();  
+  String recaptcha_site_key = AppProperties.getInstance().getRecaptchaSiteKey();  
+  String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();  
   //String version = (String) 
   //  request.getSession().getAttribute(FormRequest.VERSION);
   
@@ -67,14 +69,6 @@ Constants.SECURITY_KEY
     }
 
 
-    function verifyRecaptcha0() {
-        // User has to check reCAPTCHA
-        var response = grecaptcha.getResponse();
-        if(response == '') {
-            alert("Please complete the I'm-not-a-robot widget before submitting your entry.");
-            return false;
-        }
-    }
         
 
 function verifyRecaptcha() {
@@ -82,7 +76,7 @@ function verifyRecaptcha() {
     $.ajax({
         type: "POST",
         url: 'https://www.google.com/recaptcha/api/siteverify',
-        data: {"secret" : "<%=Constants.SITE_KEY%>", "response" : response},
+        data: {"secret" : "<%=recaptcha_site_key%>", "response" : response},
         contentType: 'application/x-www-form-urlencoded',
         success: function(data) { 
            //console.log(data); 

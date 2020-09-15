@@ -33,6 +33,9 @@
   String warnings = HTTPUtils.getJspAttributeString(request, WARNINGS);
   String warningType = HTTPUtils.getJspAttributeString(request, WARNING_TYPE);
   boolean isUserError = Prop.WarningType.valueOfOrDefault(warningType) == Prop.WarningType.User;
+
+  String recaptcha_site_key = AppProperties.getInstance().getRecaptchaSiteKey();  
+  String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();  
     
   
   String subject = HTTPUtils.getJspAttributeString(request, SUBJECT);
@@ -188,7 +191,7 @@ if (errorMsg != null) {
     <br/><br/>
 
 
-<div class="g-recaptcha" data-sitekey="<%=Constants.SITE_KEY%>"></div>
+<div class="g-recaptcha" data-sitekey="<%=recaptcha_site_key%>"></div>
 
 
 <br/>
@@ -212,9 +215,6 @@ if (errorMsg != null) {
       alt="submit">
     </h:commandButton>
     
-    <!--
-    <input type="button" src="images/submit.gif" onclick="backend_API_challenge();" value="submit"></input>
-    -->
     
     <!--
 <label for="captcha_option">Captcha Option<LABEL>    

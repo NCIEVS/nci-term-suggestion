@@ -1,4 +1,5 @@
 package gov.nih.nci.evs.browser.common;
+import gov.nih.nci.evs.browser.properties.*;
 
 /**
  * <!-- LICENSE_TEXT_START -->
@@ -49,20 +50,23 @@ package gov.nih.nci.evs.browser.common;
  */
 public class Constants {
 
+
     public static final String TELEPHONE = "240-276-5541 or Toll-Free: 1-888-478-4423";
     public static final String MAIL_TO = "NCIAppSupport@nih.gov";
 
     public static final String NCICB_URL = "http://ncicb.nci.nih.gov/support";
     public static final String CDISC_MULTIPLE_TERM_REQUEST_TEMPLATE = "CDISC_Multi_Term_Request.xls";
 
-//localhost:
-    //public static final String SITE_KEY = "6LfoOswZAAAAACLHbl3WMPusBNs5Anzje1it0XQZ";
-    //public static final String SECURITY_KEY = "6LfoOswZAAAAAGE0G5n94UqPosu7Jk83b1l2W0ro";
+/*
+	public static String SITE_KEY = null;
+	public static String SECURITY_KEY = null;
 
-//DEV
-    public static final String SITE_KEY = "6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR";
-    public static final String SECURITY_KEY = "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy";
 
+    static {
+		SITE_KEY = new AppProperties().getRecaptchaSiteKey();
+		SECURITY_KEY = AppProperties.getRecaptchaSecurityKey();
+    }
+*/
 
 /**
      * Constructor

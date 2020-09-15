@@ -1,8 +1,10 @@
 package gov.nih.nci.evs.browser.bean;
 
+import gov.nih.nci.evs.browser.properties.*;
 import gov.nih.nci.evs.browser.common.*;
 import javax.servlet.http.*;
 import gov.nih.nci.evs.browser.webapp.*;
+import gov.nih.nci.evs.browser.utils.*;
 import gov.nih.nci.evs.utils.*;
 
 import nl.captcha.Captcha;
@@ -562,7 +564,6 @@ public class UserSessionBean {
             (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequest();
 
-        String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
 
         request.getSession().removeAttribute("errorMsg");
         request.getSession().removeAttribute("errorType");
@@ -578,7 +579,9 @@ public class UserSessionBean {
 		request.getSession().setAttribute(ContactUsRequest.EMAIL_MSG, message);
 		request.getSession().setAttribute(ContactUsRequest.EMAIL_ADDRESS, from);
 
-        JSONObject json = getCaptchaJsonResponse(Constants.SECURITY_KEY, request.getParameter("g-recaptcha-response"));
+        String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
+        String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();
+        JSONObject json = new CaptchaUtils().getCaptchaJsonResponse(recaptcha_security_key, request.getParameter("g-recaptcha-response"));
         String json_str = json.toString();
 
         if (str.length() == 0 || json_str.indexOf("error-code") != -1) {

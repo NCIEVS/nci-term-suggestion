@@ -172,6 +172,8 @@
                 <filter token="cadsr.sources" value="${cadsr.sources}"/>
                 <filter token="cadsr.types" value="${cadsr.types}"/>
                 <filter token="audio_captcha_background_noise_on" value="${audio_captcha_background_noise_on}"/>
+                <filter token="recaptcha.site.key" value="${recaptcha.site.key}"/>
+                <filter token="recaptcha.security.key" value="${recaptcha.security.key}"/>
            </filterset>
             <resources>
                 <file file="${bda.conf.dir}/${webapp.prop.file}"/>
@@ -258,6 +260,11 @@
                 <filter token="cdisc.request.types" value="${cdisc.request.types}"/>
                 <filter token="cdisc.codes" value="${cdisc.codes}"/>
                 <filter token="cdisc.quicklinks" value="${cdisc.quicklinks}"/>
+                
+                <filter token="recaptcha.site.key" value="${recaptcha.site.key}"/>
+                <filter token="recaptcha.security.key" value="${recaptcha.security.key}"/>
+                
+                
             </filterset>
             <resources>
                 <file file="${exploded.dir}/deploy/${webapp.prop.file}"/>

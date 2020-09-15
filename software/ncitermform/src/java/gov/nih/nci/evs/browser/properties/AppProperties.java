@@ -77,6 +77,10 @@ public class AppProperties {
     private static final String CDISC_QUICKLINKS = "CDISC_QUICKLINKS";
     public static final String AUDIO_CAPTCHA_BACKGROUND_NOISE_ON = "AUDIO_CAPTCHA_BACKGROUND_NOISE_ON";
 
+    public static String RECAPTCHA_SITE_KEY = "RECAPTCHA_SITE_KEY";
+    public static String RECAPTCHA_SECURITY_KEY = "RECAPTCHA_SECURITY_KEY";
+
+
     private static AppProperties _appProperties = null;
     private Logger _logger = Logger.getLogger(AppProperties.class);
     private HashMap<String, String> _configurableItemMap;
@@ -94,6 +98,9 @@ public class AppProperties {
     private ArrayList<QuickLinkInfo> _cdiscQuickLinkList = null;
     private static boolean _audio_captcha_background_noise_on = true;
     private static String _configurationDir = null;
+
+    private String _recaptcha_site_key = null;
+    private String _recaptcha_security_key = null;
 
     private AppProperties() { // Singleton Pattern
         loadProperties();
@@ -393,4 +400,34 @@ public class AppProperties {
         return _audio_captcha_background_noise_on;
     }
 
+
+    public String getRecaptchaSiteKey() {
+        if (_recaptcha_site_key != null)
+            return _recaptcha_site_key;
+        try {
+        	_recaptcha_site_key = getProperty(RECAPTCHA_SITE_KEY);
+            if (_recaptcha_site_key == null)
+            	_recaptcha_site_key = "";
+        } catch (Exception ex) {
+        	_recaptcha_site_key = ex.getMessage();
+        }
+
+        _logger.info("getRecaptchaSiteKey returns " + _recaptcha_site_key);
+        return _recaptcha_site_key;
+    }
+
+
+    public String getRecaptchaSecurityKey() {
+        if (_recaptcha_security_key != null)
+            return _recaptcha_security_key;
+        try {
+        	_recaptcha_security_key = getProperty(RECAPTCHA_SECURITY_KEY);
+            if (_recaptcha_security_key == null)
+            	_recaptcha_security_key = "";
+        } catch (Exception ex) {
+        	_recaptcha_security_key = ex.getMessage();
+        }
+
+        _logger.info("getRecaptchaSecurityKey returns " + _recaptcha_security_key);
+        return _recaptcha_security_key;		    }
 }

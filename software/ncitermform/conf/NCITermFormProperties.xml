@@ -4,8 +4,13 @@
   <ConfigurableItems>
 
     <ConfigurableItem>
-      <key>NCITERMFORM_BUILD_INFO</key>
-      <value>@build.info@</value>
+      <key>RECAPTCHA_SITE_KEY</key>
+      <value>@recaptcha.site.key@</value>
+    </ConfigurableItem>
+    
+    <ConfigurableItem>
+      <key>RECAPTCHA_SECURITY_KEY</key>
+      <value>@recaptcha.security.key@</value>
     </ConfigurableItem>
 
     <ConfigurableItem>
