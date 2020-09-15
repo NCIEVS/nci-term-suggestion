@@ -169,7 +169,7 @@ if (errorMsg != null) {
     To use this web form, please fill in every box below and then click on 'Submit'. 
   </p>
   
-  <h:form styleClass="search-form" acceptcharset="UTF-8">
+  <h:form styleClass="search-form" acceptcharset="UTF-8" >
     <p>
       <% if (isUserError) %> <i style="color:#FF0000;">* Required)</i>
       <i><label for="subject">Subject of your email</label>:</i>
@@ -188,10 +188,8 @@ if (errorMsg != null) {
     <br/><br/>
 
 
-<div class="g-recaptcha" data-sitekey="6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR"></div>
-<!--
-<div class="g-recaptcha" data-sitekey="6LfoOswZAAAAACLHbl3WMPusBNs5Anzje1it0XQZ"></div>
--->
+<div class="g-recaptcha" data-sitekey="<%=Constants.SITE_KEY%>"></div>
+
 
 <br/>
     
@@ -209,7 +207,7 @@ if (errorMsg != null) {
       id="mail"
       value="submit"
       image="/images/submit.gif"
-      onclick="backend_API_challenge();"
+      onclick="return verifyRecaptcha();"
       action="#{userSessionBean.contactUs}"
       alt="submit">
     </h:commandButton>

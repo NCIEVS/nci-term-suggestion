@@ -1,17 +1,30 @@
 package gov.nih.nci.evs.browser.bean;
 
+import gov.nih.nci.evs.browser.common.*;
 import javax.servlet.http.*;
 import gov.nih.nci.evs.browser.webapp.*;
 import gov.nih.nci.evs.utils.*;
 
 import nl.captcha.Captcha;
 
+import java.io.*;
 import java.util.*;
 
 import javax.faces.context.*;
 import javax.faces.event.*;
 import javax.faces.model.*;
 import javax.servlet.http.*;
+
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONObject;
+
+
 /*
 import nl.captcha.servlet.CaptchaServletUtil;
 import javax.faces.context.FacesContext;
@@ -71,6 +84,7 @@ public class UserSessionBean {
 
     public static final String PLEASE_COMPLETE_DATA_ENTRIES = "Please complete data entries.";
     public static final String INVALID_EMAIL_ADDRESS = "WARNING: Invalid email address.";
+    public static final String INCOMPLETE_CAPTCHA_RESPONSE = "WARNING: Incomplete Captcha Response";
 
     public String changeRequest() {
         HTTPUtils.getRequest().setAttribute(
@@ -548,6 +562,8 @@ public class UserSessionBean {
             (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequest();
 
+        String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
+
         request.getSession().removeAttribute("errorMsg");
         request.getSession().removeAttribute("errorType");
         request.getSession().removeAttribute("retry");
@@ -561,6 +577,16 @@ public class UserSessionBean {
 		request.getSession().setAttribute(ContactUsRequest.SUBJECT, subject);
 		request.getSession().setAttribute(ContactUsRequest.EMAIL_MSG, message);
 		request.getSession().setAttribute(ContactUsRequest.EMAIL_ADDRESS, from);
+
+        JSONObject json = getCaptchaJsonResponse(Constants.SECURITY_KEY, request.getParameter("g-recaptcha-response"));
+        String json_str = json.toString();
+
+        if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+			msg = INCOMPLETE_CAPTCHA_RESPONSE;
+			request.getSession().setAttribute("errorMsg", msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
 
 		//if (isNull(answer) || isNull(subject) || isNull(message) || isNull(from)) {
 		if (isNull(subject) || isNull(message) || isNull(from)) {
@@ -860,5 +886,39 @@ public class UserSessionBean {
             super(text);
         }
     }
+
+
+	public synchronized JSONObject getCaptchaJsonResponse(String secretKey, String response) {
+		JSONObject json = null;
+		try {
+			String url = "https://www.google.com/recaptcha/api/siteverify",
+					params = "secret=" + secretKey + "&response=" + response;
+
+			HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
+			http.setDoOutput(true);
+			http.setRequestMethod("POST");
+			http.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded; charset=UTF-8");
+			OutputStream out = http.getOutputStream();
+			out.write(params.getBytes("UTF-8"));
+			out.flush();
+			out.close();
+
+			InputStream res = http.getInputStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(res, "UTF-8"));
+
+			StringBuilder sb = new StringBuilder();
+			int cp;
+			while ((cp = rd.read()) != -1) {
+				sb.append((char) cp);
+			}
+			json = new JSONObject(sb.toString());
+			res.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return json;
+	}
+
 
 }

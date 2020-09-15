@@ -159,6 +159,9 @@ public final class RedirectServlet extends HttpServlet {
 		String action = HTTPUtils.cleanXSS((String) request.getParameter("action"));
         if (action != null && action.compareToIgnoreCase("contactUs") == 0) {
 			try {
+
+				System.out.println("execute contact us...");
+
 				contactUs(request, response);
 			} catch (Exception ex) {
 				ex.printStackTrace();

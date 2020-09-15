@@ -2,6 +2,10 @@
 <%@ page import="gov.nih.nci.evs.browser.properties.*" %>
 <%@ page import="gov.nih.nci.evs.browser.webapp.*" %>
 <%@ page import="gov.nih.nci.evs.utils.*" %>
+<%@ page import="gov.nih.nci.evs.browser.common.*" %>
+
+Constants.SECURITY_KEY
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
   String basePath = FormUtils.getBasePath(request);
@@ -62,36 +66,36 @@
         document.getElementById("audioSupport").innerHTML = document.createElement('audio').canPlayType("audio/wav");
     }
 
-<!--    
-	function checkRecaptcha() {
-	  var response = grecaptcha.getResponse();
-	  if(response.length == 0) {
-	    //reCaptcha not verified
-	    alert("no pass");
-	  }
-	  else {
-	    //reCaptch verified
-	    alert("pass");
-	  }
-	}    
--->
 
-function backend_API_challenge() {
+    function verifyRecaptcha0() {
+        // User has to check reCAPTCHA
+        var response = grecaptcha.getResponse();
+        if(response == '') {
+            alert("Please complete the I'm-not-a-robot widget before submitting your entry.");
+            return false;
+        }
+    }
+        
+
+function verifyRecaptcha() {
     var response = grecaptcha.getResponse();
     $.ajax({
         type: "POST",
         url: 'https://www.google.com/recaptcha/api/siteverify',
-        //data: {"secret" : "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy9", "response" : response, "remoteip":"localhost"},
-        data: {"secret" : "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy9", "response" : response},
-        //data: {"secret" : "6LfoOswZAAAAAGE0G5n94UqPosu7Jk83b1l2W0ro", "response" : response},
+        data: {"secret" : "<%=Constants.SITE_KEY%>", "response" : response},
         contentType: 'application/x-www-form-urlencoded',
         success: function(data) { 
            //console.log(data); 
            //alert("pass");
            
-           // String redirectURL = request.getContextPath() + "/redirect?action='contactus";
-           // response.sendRedirect(redirectURL);
+            String redirectURL = request.getContextPath() + "/redirect?action='contactus";
+            response.sendRedirect(redirectURL);
            
+		if(data.response == '') {
+		    alert("Please complete the I'm-not-a-robot widget before submitting your entry.");
+		    return false;
+		}
+               
         }
     });
 }

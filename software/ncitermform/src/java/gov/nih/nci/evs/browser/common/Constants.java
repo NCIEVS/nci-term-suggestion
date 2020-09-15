@@ -55,7 +55,16 @@ public class Constants {
     public static final String NCICB_URL = "http://ncicb.nci.nih.gov/support";
     public static final String CDISC_MULTIPLE_TERM_REQUEST_TEMPLATE = "CDISC_Multi_Term_Request.xls";
 
-    /**
+//localhost:
+    //public static final String SITE_KEY = "6LfoOswZAAAAACLHbl3WMPusBNs5Anzje1it0XQZ";
+    //public static final String SECURITY_KEY = "6LfoOswZAAAAAGE0G5n94UqPosu7Jk83b1l2W0ro";
+
+//DEV
+    public static final String SITE_KEY = "6LfVEMwZAAAAALX_jscfvpkh4g62h3GcwDgg9rvR";
+    public static final String SECURITY_KEY = "6LfVEMwZAAAAAPX2pK-KLJxa69A0H81WDwR6BuSy";
+
+
+/**
      * Constructor
      */
     private Constants() {
