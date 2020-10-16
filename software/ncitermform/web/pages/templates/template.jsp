@@ -7,7 +7,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
   String basePath = FormUtils.getBasePath(request);
- 
   String imagesPath = FormUtils.getImagesPath(request);
   String cssPath = FormUtils.getCSSPath(request);
   String content_title = HTTPUtils.cleanXSS((String) request.getParameter("content_title"));
