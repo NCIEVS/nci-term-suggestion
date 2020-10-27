@@ -268,6 +268,7 @@ public class UserSessionBean {
 		for (int i=0; i<required_fields.length; i++) {
 			String parameter = required_fields[i];
 			String s =  HTTPUtils.cleanXSS((String) request.getParameter(parameter));
+
 			if (isNull(s)) {
 				msg = "Please complete data entries.";
 				request.getSession().setAttribute("errorMsg", msg);

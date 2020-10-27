@@ -95,7 +95,8 @@ public class SuggestionRequest extends FormRequest {
         DEFINITION, PROJECT, REASON, CADSR_SOURCE, CADSR_TYPE, ANSWER };
 
 
-    private static final String[] REQUIRED_FIELDS = new String[] {EMAIL, TERM, ANSWER };
+    //private static final String[] REQUIRED_FIELDS = new String[] {EMAIL, TERM, ANSWER };
+    private static final String[] REQUIRED_FIELDS = new String[] {EMAIL, TERM };
 
     private static final String[] MOST_PARAMETERS = new String[] {
         /* EMAIL, OTHER, VOCABULARY, */ TERM, SYNONYMS, NEAREST_CODE,
