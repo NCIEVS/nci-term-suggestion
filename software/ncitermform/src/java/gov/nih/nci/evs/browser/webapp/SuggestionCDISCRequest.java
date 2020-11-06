@@ -96,7 +96,8 @@ public class SuggestionCDISCRequest extends FormRequest {
         EMAIL, NAME, PHONE_NUMBER, ORGANIZATION, /* OTHER, */ VOCABULARY };
 
     //[#32881] CDISC Form - Make "Reason for Suggestion" field required
-    private static final String[] REQUIRED_FIELDS = new String[] {EMAIL, TERM, REASON, ANSWER };
+    //private static final String[] REQUIRED_FIELDS = new String[] {EMAIL, TERM, REASON, ANSWER };
+    private static final String[] REQUIRED_FIELDS = new String[] {EMAIL, TERM, REASON};
 
     public SuggestionCDISCRequest() {
         super(VOCABULARY);
