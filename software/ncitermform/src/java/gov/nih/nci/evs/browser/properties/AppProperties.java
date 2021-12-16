@@ -1,7 +1,8 @@
 package gov.nih.nci.evs.browser.properties;
 
 import java.util.*;
-import org.apache.log4j.*;
+//import org.apache.log4j.*;
+import org.apache.logging.log4j.*;
 import gov.nih.nci.evs.browser.webapp.*;
 import gov.nih.nci.evs.utils.*;
 
@@ -82,7 +83,8 @@ public class AppProperties {
 
 
     private static AppProperties _appProperties = null;
-    private Logger _logger = Logger.getLogger(AppProperties.class);
+    //private Logger _logger = Logger.getLogger(AppProperties.class);
+    private Logger _logger = LogManager.getLogger();
     private HashMap<String, String> _configurableItemMap;
     private String _buildDate = null;
     private String _appVersion = null;

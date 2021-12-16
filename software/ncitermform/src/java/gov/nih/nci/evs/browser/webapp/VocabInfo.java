@@ -1,7 +1,8 @@
 package gov.nih.nci.evs.browser.webapp;
 
 import java.util.*;
-import org.apache.log4j.*;
+//import org.apache.log4j.*;
+import org.apache.logging.log4j.*;
 import gov.nih.nci.evs.utils.*;
 
 /**
@@ -52,7 +53,8 @@ import gov.nih.nci.evs.utils.*;
  */
 
 public class VocabInfo {
-    private static Logger _logger = Logger.getLogger(VocabInfo.class);
+    //private static Logger _logger = Logger.getLogger(VocabInfo.class);
+    private static Logger _logger = LogManager.getLogger();
     private static final String DELIM = ";";
     private String _displayName = "";
     private String _name = "";
