@@ -62,7 +62,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import gov.nih.nci.evs.utils.*;
-//import org.apache.log4j.*;
+import org.apache.logging.log4j.*;
 
 
 
@@ -72,7 +72,7 @@ public final class RedirectServlet extends HttpServlet {
     public static final String INVALID_EMAIL_ADDRESS = "WARNING: Invalid email address.";
 
 
-    //private static Logger _logger = Logger.getLogger(RedirectServlet.class);
+	private static Logger _logger = LogManager.getLogger(RedirectServlet.class);
 
     /**
      * Validates the Init and Context parameters, configures authentication URL

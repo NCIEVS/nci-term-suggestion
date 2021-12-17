@@ -2,8 +2,8 @@ package gov.nih.nci.evs.browser.webapp;
 
 import java.util.*;
 import javax.servlet.http.*;
-//import org.apache.log4j.*;
 import org.apache.logging.log4j.*;
+
 import gov.nih.nci.evs.utils.*;
 
 /**
@@ -54,8 +54,7 @@ import gov.nih.nci.evs.utils.*;
  */
 
 public class BaseRequest {
-    //private static Logger _logger = Logger.getLogger(BaseRequest.class);
-    private static Logger _logger = LogManager.getLogger();
+	private static Logger _logger = LogManager.getLogger(BaseRequest.class);
 
     public static final String[] EMPTY_PARAMETERS = new String[] {};
     protected final String INDENT = "    ";

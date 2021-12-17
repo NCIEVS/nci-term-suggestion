@@ -63,12 +63,12 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import gov.nih.nci.evs.utils.*;
-//import org.apache.log4j.*;
+import org.apache.logging.log4j.*;
 
 
 
 public final class DownloadServlet extends HttpServlet {
-    //private static Logger _logger = Logger.getLogger(DownloadServlet.class);
+	private static Logger _logger = LogManager.getLogger(DownloadServlet.class);
 
     /**
      * Validates the Init and Context parameters, configures authentication URL
