@@ -34,6 +34,11 @@
     </listener>
 -->
 
+<error-page>
+<error-code>500</error-code>
+<location>/pages/server_error.html</location>
+</error-page>
+
 	<!-- Faces Servlet -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
