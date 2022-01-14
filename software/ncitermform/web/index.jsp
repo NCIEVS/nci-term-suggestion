@@ -9,14 +9,16 @@
   System.out.println("(*) index.jsp version= " + version);
   
   String queryString = request.getQueryString();
-  System.out.println("queryString: " + queryString);
 %>  
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>NCI Term Form</title>
+  </head>
   <body>
   
 <%     
   if (queryString != null && queryString.indexOf("style") != -1) {
-      request.getSession().setAttribute("msg", "Server Error Encountered."); 
 
 %>       
 <h2>
