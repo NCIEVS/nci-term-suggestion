@@ -7,9 +7,26 @@
       version = BaseRequest.getVersion(request);
   } 
   System.out.println("(*) index.jsp version= " + version);
-%>
+  
+  String queryString = request.getQueryString();
+  System.out.println("queryString: " + queryString);
+%>  
 <html>
   <body>
+  
+<%     
+  if (queryString != null && queryString.indexOf("style") != -1) {
+      request.getSession().setAttribute("msg", "Server Error Encountered."); 
+
+%>       
+<h2>
+<center>Server Error</center>
+</h2>
+      	<center><b>The server encountered an unexpected condition that prevented it from fulfilling the request.</b></center>
+<%      
+  } else {
+%>  
+  
     <% if (version == null || version.compareToIgnoreCase("") == 0 || version.compareToIgnoreCase("null") == 0 || version.compareToIgnoreCase("Default") == 0) { 
     %>
        <jsp:forward page="/pages/main/suggestion.jsf"/>
@@ -21,5 +38,8 @@
       %>
            <jsp:forward page="/pages/main/suggestion.jsf?version=cadsr"/>
     <% } %>
+    
+<% } %>    
+    
   </body>
 </html>
