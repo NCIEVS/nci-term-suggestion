@@ -18,8 +18,7 @@
   <body>
   
 <%     
-  if (queryString != null && queryString.indexOf("style") != -1) {
-
+  if (queryString != null && (queryString.indexOf("style") != -1 || queryString.indexOf("alert") != -1)) {
 %>       
 <h2>
 <center>Server Error</center>
