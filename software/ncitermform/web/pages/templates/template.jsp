@@ -30,6 +30,7 @@ if (content_page != null && content_page.indexOf("WEB-INF") != -1) {
   <body>
 	<center><b><%=message%></b></center>
 <script type="text/javascript">_satellite.pageBottom();</script>
+
   </body>
 </html>  
 <%
@@ -72,6 +73,8 @@ if (content_page != null && content_page.indexOf("WEB-INF") != -1) {
     
     
     <script>
+    
+
 
     function getContextPath() {
 	return "<%=request.getContextPath()%>";
@@ -115,6 +118,7 @@ function verifyRecaptcha() {
     
   </head>
   <body>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/utils.js"></script>
   
     <f:view>
     <!-- Begin Skip Top Navigation -->
