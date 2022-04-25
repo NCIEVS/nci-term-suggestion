@@ -23,7 +23,7 @@
             String display = info.getDisplay();
             String url = info.getUrl();
         %>
-            <li><a href="<%=url%>" target="_blank"><%=display%></a></li>
+            <li><a href="<%=url%>" target="_blank" rel="noopener" ><%=display%></a></li>
         <%
           }
         %>

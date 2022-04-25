@@ -80,6 +80,7 @@ public class CaptchaUtils {
 	}
 
 	public synchronized JSONObject getCaptchaJsonResponse(String secretKey, String response) {
+		if (response == null || response.length() == 0) return null;
 		JSONObject json = null;
 		try {
 			String url = "https://www.google.com/recaptcha/api/siteverify",

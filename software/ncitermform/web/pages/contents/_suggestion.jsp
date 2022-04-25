@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ page import="gov.nih.nci.evs.browser.utils.TokenUtils" %>
 <%@ page import="java.util.*" %>
 <%@ page import="gov.nih.nci.evs.browser.properties.*" %>
 <%@ page import="gov.nih.nci.evs.browser.webapp.*" %>
@@ -30,7 +31,6 @@
           captcha_option = "audio";
           alt_captcha_option = "default";
     }    
-
   Captcha captcha = (Captcha) request.getSession().getAttribute("captcha");
   AudioCaptcha ac = null;  
   
@@ -45,6 +45,7 @@
   }
 
   String recaptcha_site_key = AppProperties.getInstance().getRecaptchaSiteKey();  
+ 
 %>    
     
 <body>
@@ -96,7 +97,6 @@
   //Prop.Version version = BaseRequest.getVersion(request);
   
   //SuggestionRequest.setupTestData();
-  
 
   // Attribute(s):
   String email = (String) request.getSession().getAttribute(EMAIL);
@@ -161,6 +161,8 @@
   String[] items = null;
   String selectedItem = null;
   String css = WebUtils.isUsingIE(request) ? "_IE" : "";
+ 
+  
 %>
 <f:view>
 
@@ -173,6 +175,14 @@ if (errorMsg != null) {
 }
 %>
 
+<%
+	String token = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+	if (token == null) {
+		token = TokenUtils.generateCSRFToken();
+		request.getSession().setAttribute(TokenUtils.CSRF_TOKEN, token);
+
+	}
+%>
 <h:form id="suggestion" styleClass="search-form" acceptcharset="UTF-8">
     <table class="newConceptDT" role='presentation'>
     
@@ -494,10 +504,12 @@ which can also respond to any questions.
    <input type="hidden" name="newtermform" id="newtermform" value="newtermform" />
    <input type="hidden" name="version" id="version" value="<%=version%>" />
    
+	<input type="hidden" name="<%=TokenUtils.CSRF_TOKEN%>" value="<%=token%>" />
   </h:form>
 
 <form>
      <input type="hidden" id="cadsr_sources_str" value="<%=cadsr_sources%>">
+	<input type="hidden" name="<%=TokenUtils.CSRF_TOKEN%>" value="<%=token%>" />
 </form>
 
 </f:view>

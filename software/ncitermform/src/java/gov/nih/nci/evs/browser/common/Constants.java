@@ -49,12 +49,10 @@ import gov.nih.nci.evs.browser.properties.*;
  * @author garciawa2
  */
 public class Constants {
-
-
     public static final String TELEPHONE = "240-276-5541 or Toll-Free: 1-888-478-4423";
     public static final String MAIL_TO = "NCIAppSupport@nih.gov";
 
-    public static final String NCICB_URL = "http://ncicb.nci.nih.gov/support";
+    public static final String NCICB_URL = "https://ncicb.nci.nih.gov/support";
     public static final String CDISC_MULTIPLE_TERM_REQUEST_TEMPLATE = "CDISC_Multi_Term_Request.xls";
 
 /*

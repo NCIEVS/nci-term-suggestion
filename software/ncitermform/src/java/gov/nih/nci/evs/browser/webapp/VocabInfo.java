@@ -194,7 +194,7 @@ public class VocabInfo {
 
     public static void main(String[] args) {
         String[] values =
-            new String[] { "NCIt ; NCI Thesaurus ; http://ncit-qa.nci.nih.gov/; ncicb@pop.nci.nih.gov; NCIThesaurus@mail.nih.gov", };
+            new String[] { "NCIt ; NCI Thesaurus ; https://ncit-qa.nci.nih.gov/; ncicb@pop.nci.nih.gov; NCIThesaurus@mail.nih.gov", };
         for (int i = 0; i < values.length; ++i) {
             _logger.info(StringUtils.SEPARATOR);
             String value = values[i];

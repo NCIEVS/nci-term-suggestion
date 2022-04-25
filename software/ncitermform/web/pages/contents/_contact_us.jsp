@@ -140,7 +140,7 @@ if (errorMsg != null) {
     <tr>
       <td/>
       <td>Web Page:</td>
-      <td><a href="<%=NCICB_URL%>" target="_blank"><%=NCICB_URL%></a></td>
+      <td><a href="<%=NCICB_URL%>" target="_blank" rel="noopener" ><%=NCICB_URL%></a></td>
     </tr>
   </table>
   <br/>
@@ -158,11 +158,11 @@ if (errorMsg != null) {
 
     For questions related to NCI's Cancer.gov Web site,
     see the
-    <a href="http://www.cancer.gov/help" target="_blank">
+    <a href="https://www.cancer.gov/help" target="_blank" rel="noopener" >
       Cancer.gov help page</a>. &nbsp;
     For help and other questions concerning NCI Enterprise Vocabulary
     Services (EVS),
-    see the <a href="http://evs.nci.nih.gov/" target="_blank">
+    see the <a href="https://evs.nci.nih.gov/" target="_blank" rel="noopener" >
       EVS Web site</a>.
   </div>
 
@@ -224,7 +224,7 @@ if (errorMsg != null) {
   </h:form>
   <br/>
   
-  <a href="http://www.cancer.gov/policies/page3" target="_blank">
+  <a href="https://www.cancer.gov/policies/page3" target="_blank" rel="noopener" >
     <i>Privacy Policy on E-mail Messages Sent to the NCI Web Site</i>
   </a>
   

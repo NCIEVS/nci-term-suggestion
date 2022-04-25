@@ -93,17 +93,22 @@ public class UserSessionBean {
             FormRequest.MESSAGE, "UserSessionBean.changeRequest");
         return FormRequest.MESSAGE_STATE;
     }
-/*
-    private Prop.Version getVersion() {
-        HttpServletRequest request = HTTPUtils.getRequest();
-        Prop.Version version = (Prop.Version)
-            request.getSession().getAttribute(FormRequest.VERSION);
-        return version;
-    }
-*/
 
     private String getVersion() {
         HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
         String version = (String) request.getSession().getAttribute(FormRequest.VERSION);
         return version;
     }
@@ -208,18 +213,42 @@ public class UserSessionBean {
 
     public String requestSuggestion() {
 		HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else {
+			System.out.println("CSRF_TOKEN verified.");
+		}
 		saveSessionVariables(request);
 		String msg = "Your message was successfully sent.";
+
         String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
         String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();
         JSONObject json = new CaptchaUtils().getCaptchaJsonResponse(recaptcha_security_key, request.getParameter("g-recaptcha-response"));
-        String json_str = json.toString();
 
-        if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+        if (json == null) {
 			msg = INCOMPLETE_CAPTCHA_RESPONSE;
 			request.getSession().setAttribute("errorMsg", msg);
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
+//TO BE MODIFIED:
+        } else {
+			String json_str = json.toString();
+			if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+				msg = INCOMPLETE_CAPTCHA_RESPONSE;
+				request.getSession().setAttribute("errorMsg", msg);
+				request.getSession().setAttribute("retry", "true");
+				return "retry";
+			}
 		}
 
         //String answer = HTTPUtils.cleanXSS((String) request.getParameter("answer"));
@@ -366,6 +395,19 @@ public class UserSessionBean {
 	/*
     public void saveCDISCSessionVariables(HttpServletRequest request) {
 	    //HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
 	    String retry_cdisc = (String) request.getSession().getAttribute("retry_cdisc");
 
 	    String email = HTTPUtils.getJspSessionAttributeString(request, SuggestionCDISCRequest.EMAIL);
@@ -407,21 +449,45 @@ public class UserSessionBean {
 
     public String requestSuggestionCDISC() {
 		HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else {
+			System.out.println("CSRF_TOKEN verified.");
+		}
+
 		saveCDISCSessionVariables(request);
 		request.getSession().setAttribute("version", "CDISC");
 		String msg = "Your message was successfully sent.";
+
         String str = HTTPUtils.cleanXSS((String) request.getParameter("g-recaptcha-response"));
         String recaptcha_security_key = AppProperties.getInstance().getRecaptchaSecurityKey();
         JSONObject json = new CaptchaUtils().getCaptchaJsonResponse(recaptcha_security_key, request.getParameter("g-recaptcha-response"));
-        String json_str = json.toString();
 
-        if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+        if (json == null) {
 			msg = INCOMPLETE_CAPTCHA_RESPONSE;
 			request.getSession().setAttribute("errorMsg", msg);
 			request.getSession().setAttribute("retry", "true");
 			return "retry";
+//TO BE MODIFIED:
+        } else {
+			String json_str = json.toString();
+			if (str.length() == 0 || json_str.indexOf("error-code") != -1) {
+				msg = INCOMPLETE_CAPTCHA_RESPONSE;
+				request.getSession().setAttribute("errorMsg", msg);
+				request.getSession().setAttribute("retry", "true");
+				return "retry";
+			}
 		}
-
 
 		String email = HTTPUtils.cleanXSS((String) request.getParameter(SuggestionRequest.EMAIL));
 		if (isNull(email))
@@ -541,6 +607,19 @@ public class UserSessionBean {
     public String requestSuggestionCDISC() {
 		String msg = "Your message was successfully sent.";
 		HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
 		saveCDISCSessionVariables(request);
 		request.getSession().setAttribute("version", Prop.Version.CDISC);
 
@@ -737,6 +816,19 @@ public class UserSessionBean {
 
     public String refreshForm() {
 	    HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
 	    String retry = (String) request.getSession().getAttribute("retry");
 
         String email = HTTPUtils.getJspSessionAttributeString(request, SuggestionRequest.EMAIL);
@@ -784,6 +876,19 @@ public class UserSessionBean {
 
     public String refreshCDISCForm() {
 	    HttpServletRequest request = HTTPUtils.getRequest();
+		String token_session = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+		String token_form = HTTPUtils.cleanXSS((String) request.getParameter(TokenUtils.CSRF_TOKEN));
+		if (token_session == null || token_form == null) {
+			String err_msg = "Validation token is missing.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		} else if (token_session.compareTo(token_form) != 0) {
+			String err_msg = "Invalid token is detected.";
+			request.getSession().setAttribute("errorMsg", err_msg);
+			request.getSession().setAttribute("retry", "true");
+			return "retry";
+		}
 	    String retry_cdisc = (String) request.getSession().getAttribute("retry_cdisc");
 
 	    String email = HTTPUtils.getJspSessionAttributeString(request, SuggestionCDISCRequest.EMAIL);

@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<%@ page import="gov.nih.nci.evs.browser.utils.TokenUtils" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -238,6 +239,13 @@ if (errorMsg != null) {
 }
 %>
 
+<%
+	String token = (String) request.getSession().getAttribute(TokenUtils.CSRF_TOKEN);
+	if (token == null) {
+		token = TokenUtils.generateCSRFToken();
+		request.getSession().setAttribute(TokenUtils.CSRF_TOKEN, token);
+	}
+%>
 <h:form id="suggestion" styleClass="search-form" acceptcharset="UTF-8">
     <table class="newConceptDT" role='presentation'>
       <!-- =================================================================== -->
@@ -549,11 +557,13 @@ In addition, please submit a CDISC New Term Request form indicating
       <input type="hidden" name="newtermform" id="newtermform" value="cdiscnewtermform">
       <input type="hidden" name="version" id="version" value="<%=versionSession%>">
 
+	<input type="hidden" name="<%=TokenUtils.CSRF_TOKEN%>" value="<%=token%>" />
   </h:form>
   
   
 <form>
      <input type="hidden" id="cdisc_codes_str" value="<%=cdisc_codes%>">
+	<input type="hidden" name="<%=TokenUtils.CSRF_TOKEN%>" value="<%=token%>" />
 </form>  
   
   
