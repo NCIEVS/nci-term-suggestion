@@ -266,7 +266,7 @@ public class BaseRequest {
 	public static String getUrlParameter(String version) {
 		if (version == null || version.compareTo("null") == 0 || version.compareToIgnoreCase("Default") == 0)
 			return "";
-		return "?version=" + version.toLowerCase();
+		return "?version=" + version.toLowerCase(Locale.ENGLISH);
 	}
 
 }

@@ -29,7 +29,7 @@ public class TokenUtils {
 	private static final SecureRandom secureRandom = new SecureRandom();
 	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 
-    public static String CSRF_TOKEN = "CSRF_TOKEN";
+    public static final String CSRF_TOKEN = "CSRF_TOKEN";
 
 	public static String generateCSRFToken() {
 		byte[] randomBytes = new byte[36];

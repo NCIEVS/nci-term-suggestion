@@ -136,6 +136,7 @@ public class UserSessionBean {
         }
     }
 
+/*
     private String validateCaptcha(HttpServletRequest request,
         String returnIncompleteState) throws Exception {
         Captcha captcha = (Captcha) request.getSession().getAttribute(Captcha.NAME);
@@ -165,7 +166,7 @@ public class UserSessionBean {
         request.getSession().removeAttribute(Captcha.NAME);
         return null;
     }
-
+*/
 
 
 
@@ -805,6 +806,7 @@ public class UserSessionBean {
         try {
             request.setCharacterEncoding("UTF-8"); // Do this so we can capture non-Latin chars
         } catch (Exception ex) {
+			ex.printStackTrace();
         }
 
         request.getSession().removeAttribute("reload");
@@ -1001,6 +1003,7 @@ public class UserSessionBean {
         return "retry";
 	}
 
+/*
     private String validateAudioCaptcha(HttpServletRequest request,
         String returnIncompleteState) throws Exception {
 
@@ -1033,7 +1036,7 @@ public class UserSessionBean {
         request.getSession().removeAttribute(AudioCaptcha.NAME);
         return null;
     }
-
+*/
     private static class InvalidCaptChaInputException extends Exception {
         private static final long serialVersionUID = 2L;
         public InvalidCaptChaInputException(String text) {
@@ -1044,6 +1047,7 @@ public class UserSessionBean {
 
 	public synchronized JSONObject getCaptchaJsonResponse(String secretKey, String response) {
 		JSONObject json = null;
+		BufferedReader rd = null;
 		try {
 			String url = "https://www.google.com/recaptcha/api/siteverify",
 					params = "secret=" + secretKey + "&response=" + response;
@@ -1059,7 +1063,7 @@ public class UserSessionBean {
 			out.close();
 
 			InputStream res = http.getInputStream();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(res, "UTF-8"));
+			rd = new BufferedReader(new InputStreamReader(res, "UTF-8"));
 
 			StringBuilder sb = new StringBuilder();
 			int cp;
@@ -1068,8 +1072,27 @@ public class UserSessionBean {
 			}
 			json = new JSONObject(sb.toString());
 			res.close();
+
+			if (rd != null) {
+				try {
+					rd.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		} finally {
+			if (rd != null) {
+				try {
+					rd.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 		return json;
 	}

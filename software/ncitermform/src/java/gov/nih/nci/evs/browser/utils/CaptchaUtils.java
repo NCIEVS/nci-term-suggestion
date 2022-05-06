@@ -82,6 +82,7 @@ public class CaptchaUtils {
 	public synchronized JSONObject getCaptchaJsonResponse(String secretKey, String response) {
 		if (response == null || response.length() == 0) return null;
 		JSONObject json = null;
+		BufferedReader rd = null;
 		try {
 			String url = "https://www.google.com/recaptcha/api/siteverify",
 					params = "secret=" + secretKey + "&response=" + response;
@@ -97,7 +98,7 @@ public class CaptchaUtils {
 			out.close();
 
 			InputStream res = http.getInputStream();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(res, "UTF-8"));
+			rd = new BufferedReader(new InputStreamReader(res, "UTF-8"));
 
 			StringBuilder sb = new StringBuilder();
 			int cp;
@@ -106,8 +107,28 @@ public class CaptchaUtils {
 			}
 			json = new JSONObject(sb.toString());
 			res.close();
+/*
+			if (rd != null) {
+				try {
+					rd.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+*/
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		} finally {
+
+			if (rd != null) {
+				try {
+					rd.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return json;
 	}

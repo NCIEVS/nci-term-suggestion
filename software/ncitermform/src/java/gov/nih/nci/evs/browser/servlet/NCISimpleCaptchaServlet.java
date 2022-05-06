@@ -62,11 +62,14 @@ public class NCISimpleCaptchaServlet extends SimpleCaptchaServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
     	if (getInitParameter("captcha-height") != null) {
-    		_height = Integer.valueOf(getInitParameter("captcha-height"));
+    		//_height = Integer.valueOf(getInitParameter("captcha-height"));
+    		_height = Integer.parseInt(getInitParameter("captcha-height"));
+
     	}
 
     	if (getInitParameter("captcha-width") != null) {
-    		_width = Integer.valueOf(getInitParameter("captcha-width"));
+    		//_width = Integer.valueOf(getInitParameter("captcha-width"));
+    		_width = Integer.parseInt(getInitParameter("captcha-width"));
     	}
     }
 

@@ -56,9 +56,9 @@ public class Prop {
 
         public static Bool valueOfOrDefault(String text) {
             try {
-                String textStr = text.toLowerCase();
+                String textStr = text.toLowerCase(Locale.ENGLISH);
                 for (Bool value : values()) {
-                    String valueStr = value.name().toLowerCase();
+                    String valueStr = value.name().toLowerCase(Locale.ENGLISH);
                     if (valueStr.equals(textStr))
                         return value;
                 }
@@ -68,6 +68,7 @@ public class Prop {
                     return True;
                 return values()[0];
             } catch (Exception e) {
+				e.printStackTrace();
                 return values()[0];
             }
         }
@@ -84,14 +85,15 @@ public class Prop {
 
         public static Modifiable valueOfOrDefault(String text) {
             try {
-                String textStr = text.toLowerCase();
+                String textStr = text.toLowerCase(Locale.ENGLISH);
                 for (Modifiable value : values()) {
-                    String valueStr = value.name().toLowerCase();
+                    String valueStr = value.name().toLowerCase(Locale.ENGLISH);
                     if (valueStr.equals(textStr))
                         return value;
                 }
                 return values()[0];
             } catch (Exception e) {
+				e.printStackTrace();
                 return values()[0];
             }
         }
@@ -139,14 +141,15 @@ public class Prop {
 
         public static Action valueOfOrDefault(String text) {
             try {
-                String textStr = text.toLowerCase();
+                String textStr = text.toLowerCase(Locale.ENGLISH);
                 for (Action value : values()) {
-                    String valueStr = value.name().toLowerCase();
+                    String valueStr = value.name().toLowerCase(Locale.ENGLISH);
                     if (valueStr.equals(textStr))
                         return value;
                 }
                 return values()[0];
             } catch (Exception e) {
+				e.printStackTrace();
                 return values()[0];
             }
         }
@@ -185,14 +188,15 @@ public class Prop {
 
         public static WarningType valueOfOrDefault(String text) {
             try {
-                String textStr = text.toLowerCase();
+                String textStr = text.toLowerCase(Locale.ENGLISH);
                 for (WarningType value : values()) {
-                    String valueStr = value.name().toLowerCase();
+                    String valueStr = value.name().toLowerCase(Locale.ENGLISH);
                     if (valueStr.equals(textStr))
                         return value;
                 }
                 return values()[0];
             } catch (Exception e) {
+				e.printStackTrace();
                 return values()[0];
             }
         }

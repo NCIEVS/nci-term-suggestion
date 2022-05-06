@@ -78,9 +78,8 @@ public class AppProperties {
     private static final String CDISC_QUICKLINKS = "CDISC_QUICKLINKS";
     public static final String AUDIO_CAPTCHA_BACKGROUND_NOISE_ON = "AUDIO_CAPTCHA_BACKGROUND_NOISE_ON";
 
-    public static String RECAPTCHA_SITE_KEY = "RECAPTCHA_SITE_KEY";
-    public static String RECAPTCHA_SECURITY_KEY = "RECAPTCHA_SECURITY_KEY";
-
+    public static final String RECAPTCHA_SITE_KEY = "RECAPTCHA_SITE_KEY";
+    public static final String RECAPTCHA_SECURITY_KEY = "RECAPTCHA_SECURITY_KEY";
 
     private static AppProperties _appProperties = null;
 	private Logger _logger = LogManager.getLogger(AppProperties.class);

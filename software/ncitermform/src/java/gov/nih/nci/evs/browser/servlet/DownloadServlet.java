@@ -170,24 +170,39 @@ public final class DownloadServlet extends HttpServlet {
 		}
 	}
 
-
+/*
 	private String readFile( String file ) throws IOException {
 		//BufferedReader reader = new BufferedReader( new FileReader (file));
+		BufferedReader reader = null;
+		StringBuilder stringBuilder = null;
+        try {
+			reader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(file), "UTF-8"));
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-			new FileInputStream(file), "UTF-8"));
+			String         line = null;
+			stringBuilder = new StringBuilder();
+			//String         ls = System.getProperty("line.separator");
 
-		String         line = null;
-		StringBuilder  stringBuilder = new StringBuilder();
-		//String         ls = System.getProperty("line.separator");
+			while( ( line = reader.readLine() ) != null ) {
+				stringBuilder.append( line );
+			}
+			reader.close();
 
-		while( ( line = reader.readLine() ) != null ) {
-			stringBuilder.append( line );
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		reader.close();
+		if (stringBuilder == null) return null;
 		return stringBuilder.toString();
 	}
-
+*/
 
 	protected void downloadTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
@@ -214,9 +229,18 @@ public final class DownloadServlet extends HttpServlet {
 			for (int length = 0; (length = input.read(buffer)) > 0;) {
 				output.write(buffer, 0, length);
 			}
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
 		} finally {
-			if (output != null) try { output.close(); } catch (IOException ignore) {}
-			if (input != null) try { input.close(); } catch (IOException ignore) {}
+			//if (output != null) try { output.close(); } catch (IOException ignore) {}
+			//if (input != null) try { input.close(); } catch (IOException ignore) {}
+
+			if (output != null) try { output.close(); } catch (IOException e) {e.printStackTrace();}
+			if (input != null) try { input.close(); } catch (IOException e) {e.printStackTrace();}
+
 		}
 	}
 
