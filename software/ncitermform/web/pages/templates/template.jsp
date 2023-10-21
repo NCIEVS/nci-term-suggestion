@@ -25,6 +25,7 @@ if (content_page != null && content_page.indexOf("WEB-INF") != -1) {
 <html lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core"> 
 <head>
 <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
+<script src="https://cbiit.github.io/nci-softwaresolutions-elements/components/include-html.js"></script>
 <title>Error Handling</title>
 </head>
   <body>
@@ -64,6 +65,7 @@ if (content_page != null && content_page.indexOf("WEB-INF") != -1) {
 <html lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core"> 
 
 <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
+<script src="https://cbiit.github.io/nci-softwaresolutions-elements/components/include-html.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -118,8 +120,14 @@ function verifyRecaptcha() {
     
   </head>
   <body>
+    <script src="https://cbiit.github.io/nci-softwaresolutions-elements/components/include-html.js"></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/utils.js"></script>
-  
+
+    <header class="flex-grow-0">
+        <include-html src="https://cbiit.github.io/nci-softwaresolutions-elements/banners/government-shutdown.html">
+        </include-html>
+    </header>
+    
     <f:view>
     <!-- Begin Skip Top Navigation -->
       <a href="#evs-content" class="hideLink" accesskey="1" title="Skip repetitive navigation links">skip navigation links</A>
