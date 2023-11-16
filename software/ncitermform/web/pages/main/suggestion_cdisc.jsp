@@ -6,8 +6,10 @@
  <body>
 
     <header class="flex-grow-0">
+	<div style='text-align: left'>
         <include-html src="https://cbiit.github.io/nci-softwaresolutions-elements/banners/government-shutdown.html">
         </include-html>
+	</div>
     </header> 
  
   <jsp:forward page="/pages/templates/template.jsp">
