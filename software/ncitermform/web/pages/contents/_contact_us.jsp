@@ -158,7 +158,7 @@ if (errorMsg != null) {
 
     For questions related to NCI's Cancer.gov Web site,
     see the
-    <a href="https://www.cancer.gov/help" target="_blank" rel="noopener" >
+    <a href="https://datascience.cancer.gov/about/application-support" target="_blank" rel="noopener" >
       Cancer.gov help page</a>. &nbsp;
     For help and other questions concerning NCI Enterprise Vocabulary
     Services (EVS),
@@ -224,7 +224,7 @@ if (errorMsg != null) {
   </h:form>
   <br/>
   
-  <a href="https://www.cancer.gov/policies/page3" target="_blank" rel="noopener" >
+  <a href="https://www.cancer.gov/policies/privacy-security" target="_blank" rel="noopener" >
     <i>Privacy Policy on E-mail Messages Sent to the NCI Web Site</i>
   </a>
   
